@@ -79,6 +79,7 @@ declare namespace API {
 
   type Chart = {
     chartData?: string;
+    chartName?: string;
     chartType?: string;
     createTime?: string;
     genChart?: string;
@@ -92,18 +93,21 @@ declare namespace API {
 
   type ChartAddRequest = {
     chartData?: string;
+    chartName?: string;
     chartType?: string;
     goal?: string;
   };
 
   type ChartEditRequest = {
     chartData?: string;
+    chartName?: string;
     chartType?: string;
     goal?: string;
     id?: number;
   };
 
   type ChartQueryRequest = {
+    chartName?: string;
     chartType?: string;
     current?: number;
     goal?: string;
@@ -116,6 +120,7 @@ declare namespace API {
 
   type ChartUpdateRequest = {
     chartData?: string;
+    chartName?: string;
     chartType?: string;
     createTime?: string;
     genChart?: string;
@@ -129,6 +134,12 @@ declare namespace API {
 
   type DeleteRequest = {
     id?: number;
+  };
+
+  type genChartByAiUsingPOSTParams = {
+    chartName?: string;
+    chartType?: string;
+    goal?: string;
   };
 
   type getChartByIdUsingGETParams = {
@@ -151,13 +162,24 @@ declare namespace API {
     id?: number;
   };
 
+  type listUserByPageUsingPOSTParams = {
+    current?: number;
+    id?: number;
+    pageSize?: number;
+    sortField?: string;
+    sortOrder?: string;
+    userAccount?: string;
+    userName?: string;
+    userRole?: string;
+  };
+
   type LoginUserVO = {
     createTime?: string;
     id?: number;
     updateTime?: string;
     userAvatar?: string;
     userName?: string;
-    userProfile?: string;
+    userAccount?: string;
     userRole?: string;
   };
 
@@ -306,6 +328,7 @@ declare namespace API {
     userAccount?: string;
     userAvatar?: string;
     userName?: string;
+    userPassword?: string;
     userRole?: string;
   };
 
@@ -317,13 +340,11 @@ declare namespace API {
   type UserQueryRequest = {
     current?: number;
     id?: number;
-    mpOpenId?: string;
     pageSize?: number;
     sortField?: string;
     sortOrder?: string;
-    unionId?: string;
+    userAccount?: string;
     userName?: string;
-    userProfile?: string;
     userRole?: string;
   };
 
@@ -334,16 +355,20 @@ declare namespace API {
   };
 
   type UserUpdateMyRequest = {
+    userAccount?: string;
     userAvatar?: string;
     userName?: string;
-    userProfile?: string;
+    userPassword?: string;
   };
 
   type UserUpdateRequest = {
     id?: number;
+    isDelete?: number;
+    updateTime?: string;
+    userAccount?: string;
     userAvatar?: string;
     userName?: string;
-    userProfile?: string;
+    userPassword?: string;
     userRole?: string;
   };
 

@@ -1,18 +1,17 @@
 import Footer from '@/components/Footer';
-import { WELCOME } from '@/constants';
-import { getLoginUserUsingGET, userLoginUsingPOST } from '@/services/ShierBI/UserManage';
-import { Link } from '@@/exports';
+import {selectAvatarUrl, selectUserRole, WELCOME} from '@/constants';
+import {addUserUsingPOST, getLoginUserUsingGET, userRegisterUsingPOST} from '@/services/ShierBI/UserManage';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginForm, ProFormText } from '@ant-design/pro-components';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
 import { Helmet, history, useModel } from '@umijs/max';
-import { Button, message, Tabs } from 'antd';
+import { message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
 import Settings from '../../../../config/defaultSettings';
+import {ProFormSelect} from "@ant-design/pro-form/lib";
 
 const Login: React.FC = () => {
-  const [type, setType] = useState<string>('account');
   const { setInitialState } = useModel('@@initialState');
   const containerClassName = useEmotionCss(() => {
     return {
@@ -38,22 +37,19 @@ const Login: React.FC = () => {
   };
   const handleSubmit = async (values: API.UserLoginRequest) => {
     try {
-      // 登录
-      const res = await userLoginUsingPOST(values);
-
+      // 注册
+      const res = await addUserUsingPOST(values);
       if (res.code === 0) {
-        const defaultLoginSuccessMessage = '登录成功！';
+        const defaultLoginSuccessMessage = '新增用户成功！';
         message.success(defaultLoginSuccessMessage);
         await fetchUserInfo();
-        const urlParams = new URL(window.location.href).searchParams;
-        history.push(urlParams.get('redirect') || '/');
         location.reload();
         return;
       } else {
         message.error(res.message);
       }
     } catch (error) {
-      const defaultLoginFailureMessage = '登录失败，请重试！';
+      const defaultLoginFailureMessage = '新增用户失败，请重试！';
       console.log(error);
       message.error(defaultLoginFailureMessage);
     }
@@ -62,7 +58,7 @@ const Login: React.FC = () => {
     <div className={containerClassName}>
       <Helmet>
         <title>
-          {'登录'}- {Settings.title}
+          {'新增用户'}- {Settings.title}
         </title>
       </Helmet>
       <div
@@ -87,31 +83,40 @@ const Login: React.FC = () => {
             await handleSubmit(values as API.UserLoginRequest);
           }}
         >
-          <Tabs
-            activeKey={type}
-            onChange={setType}
-            centered
-            items={[
-              {
-                key: 'account',
-                label: '账户密码登录',
-              },
-            ]}
-          />
-
-          {type === 'account' && (
+          <Tabs centered activeKey={'account'}>
+            <Tabs.TabPane key={'account'} tab={'新增用户信息填写'} />
+          </Tabs>
+          {
             <>
+              <ProFormText
+                name="userName"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <UserOutlined className={'prefixIcon'} />,
+                }}
+                placeholder="用户名"
+                rules={[
+                  {
+                    required: true,
+                    message: '用户名不能为空!',
+                  },
+                ]}
+              />
               <ProFormText
                 name="userAccount"
                 fieldProps={{
                   size: 'large',
-                  prefix: <UserOutlined />,
+                  prefix: <UserOutlined className={'prefixIcon'} />,
                 }}
-                placeholder={'请输入账户名（shier）'}
+                placeholder="用户账户 "
                 rules={[
                   {
                     required: true,
-                    message: '账户名是必填项！',
+                    message: '用户账户不能为空!',
+                  },
+                  {
+                    min: 4,
+                    message: '用户账户长度不小于4位',
                   },
                 ]}
               />
@@ -119,29 +124,59 @@ const Login: React.FC = () => {
                 name="userPassword"
                 fieldProps={{
                   size: 'large',
-                  prefix: <LockOutlined />,
+                  prefix: <LockOutlined className={'prefixIcon'} />,
                 }}
-                placeholder={'请输入密码（123456789）'}
+                placeholder={'密码'}
                 rules={[
                   {
                     required: true,
-                    message: '密码是必填项！',
+                    message: '请输入密码！',
+                  },
+                  {
+                    min: 8,
+                    message: '密码长度不得小于8',
+                  },
+                ]}
+              />
+
+              <ProFormSelect
+                name="userAvatar"
+                fieldProps={{
+                  size: 'large',
+                }}
+                label="用户头像"
+                options={selectAvatarUrl}
+                placeholder={'请选择用户头像 '}
+                rules={[
+                  {
+                    required: true,
+                    message: '请输入选择用户头像!',
+                  },
+                ]}
+              />
+
+              <ProFormSelect
+                name="userRole"
+                fieldProps={{
+                  size: 'large',
+                }}
+                label="用户角色"
+                options={selectUserRole}
+                placeholder={'选择用户角色'}
+                rules={[
+                  {
+                    required: true,
+                    message: '请选择用户角色',
                   },
                 ]}
               />
             </>
-          )}
-
-          <div style={{ textAlign: 'center' }}>
-            <Link to="/user/register">
-              <Button
-                type="primary"
-                style={{ marginBottom: 24, width: '320px', height: '45px', fontSize: '16px' }}
-              >
-                新用户注册
-              </Button>
-            </Link>
-          </div>
+          }
+          <div
+            style={{
+              marginBlockEnd: 24,
+            }}
+          />
         </LoginForm>
       </div>
       <Footer />

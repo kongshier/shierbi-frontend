@@ -7,12 +7,12 @@ import * as fileController from './fileController';
 import * as postController from './postController';
 import * as postFavourController from './postFavourController';
 import * as postThumbController from './postThumbController';
-import * as userController from './userController';
+import * as UserManage from './UserManage';
 export default {
   chartController,
   fileController,
   postController,
   postFavourController,
   postThumbController,
-  userController,
+  UserManage,
 };
