@@ -1,161 +1,64 @@
+import { HeartTwoTone, SmileTwoTone } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
-import { useModel } from '@umijs/max';
-import { Card, theme } from 'antd';
+import { Alert, Card, Typography } from 'antd';
 import React from 'react';
 
 /**
  * 每个单独的卡片，为了复用样式抽成了组件
- * @param param0
- * @returns
  */
-const InfoCard: React.FC<{
-  title: string;
-  index: number;
-  desc: string;
-  href: string;
-}> = ({ title, href, index, desc }) => {
-  const { useToken } = theme;
 
-  const { token } = useToken();
+const { Title, Paragraph } = Typography;
 
-  return (
-    <div
-      style={{
-        backgroundColor: token.colorBgContainer,
-        boxShadow: token.boxShadow,
-        borderRadius: '8px',
-        fontSize: '14px',
-        color: token.colorTextSecondary,
-        lineHeight: '22px',
-        padding: '16px 19px',
-        minWidth: '220px',
-        flex: 1,
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          gap: '4px',
-          alignItems: 'center',
-        }}
-      >
-        <div
-          style={{
-            width: 48,
-            height: 48,
-            lineHeight: '22px',
-            backgroundSize: '100%',
-            textAlign: 'center',
-            padding: '8px 16px 16px 12px',
-            color: '#FFF',
-            fontWeight: 'bold',
-            backgroundImage:
-              "url('https://gw.alipayobjects.com/zos/bmw-prod/daaf8d50-8e6d-4251-905d-676a24ddfa12.svg')",
-          }}
-        >
-          {index}
-        </div>
-        <div
-          style={{
-            fontSize: '16px',
-            color: token.colorText,
-            paddingBottom: 8,
-          }}
-        >
-          {title}
-        </div>
-      </div>
-      <div
-        style={{
-          fontSize: '14px',
-          color: token.colorTextSecondary,
-          textAlign: 'justify',
-          lineHeight: '22px',
-          marginBottom: 8,
-        }}
-      >
-        {desc}
-      </div>
-      <a href={href} target="_blank" rel="noreferrer">
-        了解更多 {'>'}
-      </a>
-    </div>
-  );
-};
+const blockContent = `通过我们的智能BI平台，即使对数据分析一无所知的同学也能够轻松完成复杂的数据分析任务，大幅节约人力成本。利用AI接口和自动化技术，我们为您提供了快速、准确和可靠的数据洞察力。立即体验我们的智能BI平台，让数据分析变得简单而智能！`;
 
 const Welcome: React.FC = () => {
-  const { token } = theme.useToken();
-  const { initialState } = useModel('@@initialState');
   return (
-    <PageContainer>
-      <Card
-        style={{
-          borderRadius: 8,
-        }}
-        bodyStyle={{
-          backgroundImage:
-            initialState?.settings?.navTheme === 'realDark'
-              ? 'background-image: linear-gradient(75deg, #1A1B1F 0%, #191C1F 100%)'
-              : 'background-image: linear-gradient(75deg, #FBFDFF 0%, #F5F7FF 100%)',
-        }}
-      >
-        <div
+    <PageContainer content={' 欢迎来到不一样的智能BI平台'}>
+      <Card>
+        <Alert
+          message={'欢迎使用我们的智能BI平台！。'}
+          type="success"
+          showIcon
+          banner
           style={{
-            backgroundPosition: '100% -30%',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: '274px auto',
-            backgroundImage:
-              "url('https://gw.alipayobjects.com/mdn/rms_a9745b/afts/img/A*BuFmQqsB2iAAAAAAAAAAAAAAARQnAQ')",
+            margin: -12,
+            marginBottom: 48,
+          }}
+        />
+        <Typography.Title
+          level={1}
+          style={{
+            textAlign: 'center',
           }}
         >
-          <div
-            style={{
-              fontSize: '20px',
-              color: token.colorTextHeading,
-            }}
-          >
-            欢迎使用 十二智能 BI
-          </div>
-          <p
-            style={{
-              fontSize: '14px',
-              color: token.colorTextSecondary,
-              lineHeight: '22px',
-              marginTop: 16,
-              marginBottom: 32,
-              width: '65%',
-            }}
-          >
-            十二智能 BI 是一个整合了 umi，智能 BI 和 ProComponents
-            的脚手架方案。致力于在设计规范和基础组件的基础上，继续向上构建，提炼出典型模板/业务组件/配套设计资源，进一步提升企业级中后台产品设计研发过程中的『用户』和『设计者』的体验。
-          </p>
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: 16,
-            }}
-          >
-            <InfoCard
-              index={1}
-              href="https://umijs.org/docs/introduce/introduce"
-              title="了解 umi"
-              desc="umi 是一个可扩展的企业级前端应用框架,umi 以路由为基础的，同时支持配置式路由和约定式路由，保证路由的功能完备，并以此进行功能扩展。"
-            />
-            <InfoCard
-              index={2}
-              title="了解 智能 BI"
-              href="https://ant.design"
-              desc="antd 是基于 智能 BI 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。"
-            />
-            <InfoCard
-              index={3}
-              title="了解 Pro Components"
-              href="https://procomponents.ant.design"
-              desc="ProComponents 是一个基于 智能 BI 做了更高抽象的模板组件，以 一个组件就是一个页面为开发理念，为中后台开发带来更好的体验。"
-            />
-          </div>
-        </div>
+          <SmileTwoTone /> 十二智能 BI <HeartTwoTone twoToneColor="#eb2f96" /> You
+        </Typography.Title>
+        <Paragraph>
+          我们的智能BI平台是一个革命性的数据分析工具，为用户提供了轻松、快速且智能化的数据分析体验。
+        </Paragraph>
+        <Paragraph>
+          <pre>{blockContent}</pre>
+        </Paragraph>
+        <Title level={2} style={{}}>
+          平台特点
+        </Title>
+        <Paragraph>与传统的BI系统相比，我们的平台具有以下突出特点</Paragraph>
+        <Paragraph>
+          1.
+          自动化分析：无需编写复杂的查询语言或进行手动分析，您只需将原始数据集导入平台，输入您想要分析的目标，我们的AI技术将自动生成符合要求的图表和分析结论。这使得数据分析变得简单且高效。
+        </Paragraph>
+        <Paragraph>
+          2.
+          简单易用：我们的平台专为不具备数据分析经验的用户设计。通过简单的界面和指导，您只需输入目标即可快速完成数据分析，无需深入了解复杂的分析技术和工具。
+        </Paragraph>
+        <Paragraph>
+          3.
+          图表管理：我们的平台提供了图表管理功能，让您可以轻松保存、组织和共享生成的图表。您可以创建自定义的仪表板，将多个图表组合在一起，以便更好地展示和比较数据。
+        </Paragraph>
+        <Paragraph>
+          4.
+          异步生成：平台支持异步生成图表和分析结果，即使处理大量数据时也能保持高效。您可以提交分析任务后继续其他工作，平台会在后台自动处理数据并生成结果，您可以随时返回查看分析完成的图表和结论。
+        </Paragraph>
       </Card>
     </PageContainer>
   );

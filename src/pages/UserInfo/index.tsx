@@ -1,9 +1,9 @@
-import {DEFAULT_AVATAR_URL, selectAvatarUrl} from '@/constants';
-import {getLoginUserUsingGET, updateMyUserUsingPOST} from '@/services/ShierBI/UserManage';
-import {ModalForm, ProForm, ProFormText} from '@ant-design/pro-components';
-import {Button, Descriptions, Divider, Image, message} from 'antd';
-import React, {useEffect, useState} from 'react';
-import {ProFormSelect} from "@ant-design/pro-form";
+import { DEFAULT_AVATAR_URL, selectAvatarUrl } from '@/constants';
+import { getLoginUserUsingGET, updateMyUserUsingPOST } from '@/services/ShierBI/UserManage';
+import { ModalForm, ProForm, ProFormText } from '@ant-design/pro-components';
+import { ProFormSelect } from '@ant-design/pro-form';
+import { Button, Descriptions, Divider, Image, message } from 'antd';
+import React, { useEffect, useState } from 'react';
 
 const waitTime = (time: number = 100) => {
   return new Promise((resolve) => {
@@ -20,6 +20,8 @@ const UserInfo: React.FC = () => {
     userAvatar: '',
     userPassword: '',
     userRole: 'user',
+    createTime: '',
+    updateTime: '',
   });
   useEffect(() => {
     async function fetchData() {
@@ -32,13 +34,14 @@ const UserInfo: React.FC = () => {
         message.error('请求参数错误！');
       }
     }
+
     fetchData();
   }, []);
   console.log('currentUser12312:', myUser);
   return (
     <>
       <Divider>用户头像</Divider>
-      <Descriptions style={{margin: '20px', marginLeft: '650px'}}>
+      <Descriptions style={{ margin: '20px', marginLeft: '650px' }}>
         <Descriptions.Item>
           <Image
             src={myUser.userAvatar === null ? DEFAULT_AVATAR_URL : myUser.userAvatar}
@@ -48,16 +51,14 @@ const UserInfo: React.FC = () => {
         </Descriptions.Item>
       </Descriptions>
       <Divider>用户信息</Divider>
-      <Descriptions bordered column={4}>
-        <Descriptions.Item label="用户名" span={1.5}>
-          {myUser.userName}
-        </Descriptions.Item>
-        <Descriptions.Item label="用户账户" span={1.5}>
-          {myUser.userAccount}
-        </Descriptions.Item>
-        <Descriptions.Item label="用户角色" span={1.5}>
+      <Descriptions bordered column={1} size={'small'}>
+        <Descriptions.Item label="用户名">{myUser.userName}</Descriptions.Item>
+        <Descriptions.Item label="用户账户">{myUser.userAccount}</Descriptions.Item>
+        <Descriptions.Item label="用户角色" >
           {myUser.userRole === 'user' ? '普通用户' : '管理员'}
         </Descriptions.Item>
+        <Descriptions.Item label="用户创建时间">{myUser.createTime}</Descriptions.Item>
+        <Descriptions.Item label="用户更新时间">{myUser.updateTime}</Descriptions.Item>
       </Descriptions>
 
       <ModalForm<API.UserUpdateMyRequest>
@@ -66,7 +67,7 @@ const UserInfo: React.FC = () => {
           <Button
             type="primary"
             shape="round"
-            style={{marginTop: '100px', width: '250px', marginLeft: '650px'}}
+            style={{ marginTop: '100px', width: '250px', marginLeft: '650px' }}
           >
             修改信息
           </Button>
@@ -90,7 +91,6 @@ const UserInfo: React.FC = () => {
           return false;
         }}
       >
-
         <ProForm.Group>
           <ProFormText
             width="md"

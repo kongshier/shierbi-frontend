@@ -16,7 +16,7 @@
     access: 'canAdmin',
     routes: [
       { path: '/admin', redirect: '/admin/sub-page' },
-      { path: '/admin/sub-page', name: '二级管理', component: './Admin' },
+      { path: '/admin/index', name: '管理员首页', component: './Admin' },
       { path: '/admin/usermanage', name: '用户管理', component: './Admin/UserManage' },
       { path: '/admin/adduser', name: '新增用户', component: './Admin/AddUser' },
     ],
