@@ -40,7 +40,7 @@ const UserInfo: React.FC = () => {
   console.log('currentUser12312:', myUser);
   return (
     <>
-      <Divider>用户头像</Divider>
+      <Divider style={{ fontWeight: 'bold', color: 'blue' }}>用户头像</Divider>
       <Descriptions style={{ margin: '20px', marginLeft: '650px' }}>
         <Descriptions.Item>
           <Image
@@ -50,15 +50,28 @@ const UserInfo: React.FC = () => {
           />
         </Descriptions.Item>
       </Descriptions>
-      <Divider>用户信息</Divider>
-      <Descriptions bordered column={1} size={'small'}>
-        <Descriptions.Item label="用户名">{myUser.userName}</Descriptions.Item>
-        <Descriptions.Item label="用户账户">{myUser.userAccount}</Descriptions.Item>
-        <Descriptions.Item label="用户角色" >
+      <Divider style={{ fontWeight: 'bold', color: 'blue' }}>用户信息</Divider>
+      <Descriptions
+        bordered
+        column={1}
+        size={'middle'}
+        contentStyle={{ fontWeight: 'bold', color: 'blue' }}
+      >
+        <Descriptions.Item style={{ textAlign: 'center' }} label="用户名：">
+          {myUser.userName}
+        </Descriptions.Item>
+        <Descriptions.Item style={{ textAlign: 'center' }} label="用户账户：">
+          {myUser.userAccount}
+        </Descriptions.Item>
+        <Descriptions.Item style={{ textAlign: 'center' }} label="用户角色：">
           {myUser.userRole === 'user' ? '普通用户' : '管理员'}
         </Descriptions.Item>
-        <Descriptions.Item label="用户创建时间">{myUser.createTime}</Descriptions.Item>
-        <Descriptions.Item label="用户更新时间">{myUser.updateTime}</Descriptions.Item>
+        <Descriptions.Item style={{ textAlign: 'center' }} label="创建时间：">
+          {myUser.createTime}
+        </Descriptions.Item>
+        <Descriptions.Item style={{ textAlign: 'center' }} label="更新时间：">
+          {myUser.updateTime}
+        </Descriptions.Item>
       </Descriptions>
 
       <ModalForm<API.UserUpdateMyRequest>
@@ -102,14 +115,14 @@ const UserInfo: React.FC = () => {
           <ProFormText
             width="md"
             name="userAccount"
-            label="用户名"
+            label="账号名称"
             placeholder="你想修改的账号名称"
             initialValue={myUser.userAccount}
           />
           <ProFormText
             width="md"
             name="userPassword"
-            label="用户名"
+            label="输入密码"
             placeholder="修改密码"
             initialValue={myUser.userPassword}
           />
