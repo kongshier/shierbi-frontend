@@ -15,11 +15,8 @@ const Settings: ProLayoutProps & {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: '十二智能 BI',
   pwa: false,
-  logo: 'https://gitee.com/kcsen/img/raw/master/picGo/systemlogo.png',
-  iconfontUrl: '',
-  token: {},
+  iconfontUrl:'',
 };
 
 export default Settings;

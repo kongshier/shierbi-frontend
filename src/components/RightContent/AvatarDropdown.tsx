@@ -8,7 +8,7 @@ import React, { useCallback } from 'react';
 import { flushSync } from 'react-dom';
 import HeaderDropdown from '../HeaderDropdown';
 // @ts-ignore
-import { userLogoutUsingPOST } from '@/services/ShierBI/UserManage';
+import { userLogoutUsingPOST } from '@/services/ShierBI/UserController';
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;

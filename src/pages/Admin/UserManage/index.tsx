@@ -3,7 +3,7 @@ import {
   deleteUserUsingPOST,
   listUserByPageUsingPOST,
   updateUserUsingPOST,
-} from '@/services/ShierBI/UserManage';
+} from '@/services/ShierBI/UserController';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ModalForm, ProForm, ProFormText, ProTable } from '@ant-design/pro-components';
 import { ProFormSelect } from '@ant-design/pro-form';

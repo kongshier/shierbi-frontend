@@ -7,7 +7,7 @@
 /**
  * 项目logo
  */
-const SYSTEM_LOGO = 'https://gitee.com/kcsen/img/raw/master/picGo/systemlogo.png';
+export const SYSTEM_LOGO = 'http://picgo.kongshier.top/typoraImages/systemlogo.png';
 
 /**
  * 知识星球介绍

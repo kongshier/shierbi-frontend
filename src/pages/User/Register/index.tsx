@@ -1,18 +1,18 @@
 import Footer from '@/components/Footer';
-import {WELCOME} from '@/constants';
-import {getLoginUserUsingGET, userLoginUsingPOST, userRegisterUsingPOST} from '@/services/ShierBI/UserManage';
-import {LockOutlined, UserOutlined} from '@ant-design/icons';
-import {LoginForm, ProFormText} from '@ant-design/pro-components';
-import {useEmotionCss} from '@ant-design/use-emotion-css';
-import {Helmet, history, useModel} from '@umijs/max';
-import {Button, message, Tabs} from 'antd';
-import React, {useState} from 'react';
-import {flushSync} from 'react-dom';
+import { SYSTEM_LOGO, WELCOME } from '@/constants';
+import { getLoginUserUsingGET, userRegisterUsingPOST } from '@/services/ShierBI/UserController';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LoginForm, ProFormText } from '@ant-design/pro-components';
+import { useEmotionCss } from '@ant-design/use-emotion-css';
+import { Helmet, history, useModel } from '@umijs/max';
+import { message, Tabs } from 'antd';
+import React, { useState } from 'react';
+import { flushSync } from 'react-dom';
 import Settings from '../../../../config/defaultSettings';
 
 const Login: React.FC = () => {
   const [type, setType] = useState<string>('account');
-  const {setInitialState} = useModel('@@initialState');
+  const { setInitialState } = useModel('@@initialState');
   const containerClassName = useEmotionCss(() => {
     return {
       display: 'flex',
@@ -59,9 +59,7 @@ const Login: React.FC = () => {
   return (
     <div className={containerClassName}>
       <Helmet>
-        <title>
-          {'注册'}- {Settings.title}
-        </title>
+        {'注册'}- {Settings.title}
       </Helmet>
       <div
         style={{
@@ -74,7 +72,7 @@ const Login: React.FC = () => {
             minWidth: 280,
             maxWidth: '75vw',
           }}
-          logo={<img alt="logo" src="/logo.svg"/>}
+          logo={<img alt="logo" src={SYSTEM_LOGO} />}
           title="十二智能 BI"
           subTitle={
             <a href={WELCOME} target="_blank">
@@ -103,7 +101,7 @@ const Login: React.FC = () => {
                 name="userAccount"
                 fieldProps={{
                   size: 'large',
-                  prefix: <UserOutlined/>,
+                  prefix: <UserOutlined />,
                 }}
                 placeholder={'请输入账户名'}
                 rules={[
@@ -117,7 +115,7 @@ const Login: React.FC = () => {
                 name="userPassword"
                 fieldProps={{
                   size: 'large',
-                  prefix: <LockOutlined/>,
+                  prefix: <LockOutlined />,
                 }}
                 placeholder={'请输入密码'}
                 rules={[
@@ -131,7 +129,7 @@ const Login: React.FC = () => {
                 name="checkPassword"
                 fieldProps={{
                   size: 'large',
-                  prefix: <LockOutlined/>,
+                  prefix: <LockOutlined />,
                 }}
                 placeholder={'请再次输入密码'}
                 rules={[
@@ -145,7 +143,7 @@ const Login: React.FC = () => {
           )}
         </LoginForm>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

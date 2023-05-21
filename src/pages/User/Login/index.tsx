@@ -1,6 +1,6 @@
 import Footer from '@/components/Footer';
-import { WELCOME } from '@/constants';
-import { getLoginUserUsingGET, userLoginUsingPOST } from '@/services/ShierBI/UserManage';
+import { SYSTEM_LOGO, WELCOME } from '@/constants';
+import { getLoginUserUsingGET, userLoginUsingPOST } from '@/services/ShierBI/UserController';
 import { Link } from '@@/exports';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginForm, ProFormText } from '@ant-design/pro-components';
@@ -61,9 +61,7 @@ const Login: React.FC = () => {
   return (
     <div className={containerClassName}>
       <Helmet>
-        <title>
-          {'登录'}- {Settings.title}
-        </title>
+        {'登录'}- {Settings.title}
       </Helmet>
       <div
         style={{
@@ -76,7 +74,7 @@ const Login: React.FC = () => {
             minWidth: 280,
             maxWidth: '75vw',
           }}
-          logo={<img alt="logo" src="/logo.svg" />}
+          logo={<img alt="logo" src={SYSTEM_LOGO} />}
           title="十二智能 BI"
           subTitle={
             <a href={WELCOME} target="_blank">

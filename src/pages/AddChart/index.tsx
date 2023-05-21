@@ -1,4 +1,4 @@
-import { genChartByAiUsingPOST } from '@/services/ShierBI/chartController';
+import { genChartByAiUsingPOST } from '@/services/ShierBI/ChartController';
 import { Button, Card, Col, Divider, Form, message, Row, Select, Space, Spin, Upload } from 'antd';
 import React, { useState } from 'react';
 

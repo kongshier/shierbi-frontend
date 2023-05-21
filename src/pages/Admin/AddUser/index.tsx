@@ -1,15 +1,15 @@
 import Footer from '@/components/Footer';
-import {selectAvatarUrl, selectUserRole, WELCOME} from '@/constants';
-import {addUserUsingPOST, getLoginUserUsingGET, userRegisterUsingPOST} from '@/services/ShierBI/UserManage';
+import { selectAvatarUrl, selectUserRole, SYSTEM_LOGO, WELCOME } from '@/constants';
+import { addUserUsingPOST, getLoginUserUsingGET } from '@/services/ShierBI/UserController';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginForm, ProFormText } from '@ant-design/pro-components';
+import { ProFormSelect } from '@ant-design/pro-form/lib';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
-import { Helmet, history, useModel } from '@umijs/max';
+import { Helmet, useModel } from '@umijs/max';
 import { message, Tabs } from 'antd';
-import React, { useState } from 'react';
+import React from 'react';
 import { flushSync } from 'react-dom';
 import Settings from '../../../../config/defaultSettings';
-import {ProFormSelect} from "@ant-design/pro-form/lib";
 
 const Login: React.FC = () => {
   const { setInitialState } = useModel('@@initialState');
@@ -57,9 +57,7 @@ const Login: React.FC = () => {
   return (
     <div className={containerClassName}>
       <Helmet>
-        <title>
-          {'新增用户'}- {Settings.title}
-        </title>
+        {'新增用户'}- {Settings.title}
       </Helmet>
       <div
         style={{
@@ -72,7 +70,7 @@ const Login: React.FC = () => {
             minWidth: 280,
             maxWidth: '75vw',
           }}
-          logo={<img alt="logo" src="/logo.svg" />}
+          logo={<img alt="logo" src={SYSTEM_LOGO} />}
           title="十二智能 BI"
           subTitle={
             <a href={WELCOME} target="_blank">

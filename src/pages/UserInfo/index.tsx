@@ -1,5 +1,5 @@
 import { DEFAULT_AVATAR_URL, selectAvatarUrl } from '@/constants';
-import { getLoginUserUsingGET, updateMyUserUsingPOST } from '@/services/ShierBI/UserManage';
+import { getLoginUserUsingGET, updateMyUserUsingPOST } from '@/services/ShierBI/UserController';
 import { ModalForm, ProForm, ProFormText } from '@ant-design/pro-components';
 import { ProFormSelect } from '@ant-design/pro-form';
 import { Button, Descriptions, Divider, Image, message } from 'antd';
