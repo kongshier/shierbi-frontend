@@ -1,4 +1,3 @@
-import { outLogin } from '@/services/ant-design-pro/api';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
 import { history, useModel } from '@umijs/max';
@@ -8,7 +7,8 @@ import type { MenuInfo } from 'rc-menu/lib/interface';
 import React, { useCallback } from 'react';
 import { flushSync } from 'react-dom';
 import HeaderDropdown from '../HeaderDropdown';
-import {userLogoutUsingPOST} from "@/services/ShierBI/UserManage";
+// @ts-ignore
+import { userLogoutUsingPOST } from '@/services/ShierBI/UserManage';
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;

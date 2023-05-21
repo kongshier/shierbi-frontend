@@ -8,7 +8,9 @@
       { component: './404' },
     ],
   },
-  { path: '/welcome', name: '欢迎', icon: 'smile', component: './Welcome' },
+  { path: '/', redirect: '/add_chart' },
+  { path: '/add_chart', name: 'BI图表分析', icon: 'barChart', component: './AddChart' },
+  { path: '/welcome', name: '欢迎', icon: 'heart', component: './Welcome' },
   {
     path: '/admin',
     icon: 'crown',
@@ -21,7 +23,7 @@
       { path: '/admin/adduser', name: '新增用户', component: './Admin/AddUser' },
     ],
   },
-  { icon: 'smile', name: '用户信息', path: '/userinfo', component: './UserInfo/' },
+  { icon: 'user', name: '用户信息', path: '/userinfo', component: './UserInfo/' },
   { path: '/', redirect: '/welcome' },
   { path: '*', layout: false, component: './404' },
 ];
