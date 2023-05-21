@@ -2,17 +2,11 @@
 /* eslint-disable */
 // API 更新时间：
 // API 唯一标识：
-import * as chartController from './chartController';
-import * as fileController from './fileController';
-import * as postController from './postController';
-import * as postFavourController from './postFavourController';
-import * as postThumbController from './postThumbController';
-import * as UserManage from './UserManage';
+import * as ChartController from './ChartController';
+import * as FileController from './FileController';
+import * as UserController from './UserController';
 export default {
-  chartController,
-  fileController,
-  postController,
-  postFavourController,
-  postThumbController,
-  UserManage,
+  ChartController,
+  FileController,
+  UserController,
 };

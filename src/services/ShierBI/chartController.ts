@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** addChart POST /api/chart/add */
+/** 创建图表 POST /api/chart/add */
 export async function addChartUsingPOST(
   body: API.ChartAddRequest,
   options?: { [key: string]: any },
@@ -17,7 +17,7 @@ export async function addChartUsingPOST(
   });
 }
 
-/** deleteChart POST /api/chart/delete */
+/** 删除图表 POST /api/chart/delete */
 export async function deleteChartUsingPOST(
   body: API.DeleteRequest,
   options?: { [key: string]: any },
@@ -32,7 +32,7 @@ export async function deleteChartUsingPOST(
   });
 }
 
-/** editChart POST /api/chart/edit */
+/** 管理员编辑图表 POST /api/chart/edit */
 export async function editChartUsingPOST(
   body: API.ChartEditRequest,
   options?: { [key: string]: any },
@@ -83,7 +83,7 @@ export async function genChartByAiUsingPOST(
   });
 }
 
-/** getChartById GET /api/chart/get */
+/** 根据Id获取图表 GET /api/chart/get */
 export async function getChartByIdUsingGET(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getChartByIdUsingGETParams,
@@ -98,7 +98,7 @@ export async function getChartByIdUsingGET(
   });
 }
 
-/** listChartByPage POST /api/chart/list/page */
+/** 分页获取图表 POST /api/chart/list/page */
 export async function listChartByPageUsingPOST(
   body: API.ChartQueryRequest,
   options?: { [key: string]: any },
@@ -113,7 +113,7 @@ export async function listChartByPageUsingPOST(
   });
 }
 
-/** listMyChartByPage POST /api/chart/my/list/page */
+/** 获取我的图表 POST /api/chart/my/list/page */
 export async function listMyChartByPageUsingPOST(
   body: API.ChartQueryRequest,
   options?: { [key: string]: any },
@@ -128,7 +128,7 @@ export async function listMyChartByPageUsingPOST(
   });
 }
 
-/** updateChart POST /api/chart/update */
+/** 管理员更新图表信息 POST /api/chart/update */
 export async function updateChartUsingPOST(
   body: API.ChartUpdateRequest,
   options?: { [key: string]: any },
