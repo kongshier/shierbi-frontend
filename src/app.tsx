@@ -44,7 +44,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
   return {
     title: '十二智能 BI',
     logo: 'http://picgo.kongshier.top/typoraImages/index_logo.png',
-    iconfontUrl:'//at.alicdn.com/t/c/font_4064432_15mc6bzbxqt.js',
+    iconfontUrl:'//at.alicdn.com/t/c/font_4064432_j1mfpb4mtss.js',
     actionsRender: () => [<Question key="doc" />],
     // 显示头像
     avatarProps: {
