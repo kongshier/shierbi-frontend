@@ -10,7 +10,7 @@
   },
   { path: '/', redirect: '/add_chart' },
   { path: '/welcome', name: '欢迎', icon: 'icon-icon_huanyingmoshi', component: './Welcome' },
-  { path: '/add_chart', name: 'BI图表分析', icon: 'icon-tubiao1', component: './AddChart' },
+  { path: '/add_chart', name: 'BI智能图表分析', icon: 'icon-tubiao1', component: './AddChart' },
   { path: '/my_chart', name: '我的图表', icon: 'icon-bingtutubiao', component: './MyChart' },
   {
     path: '/admin',
@@ -20,8 +20,9 @@
     routes: [
       { path: '/admin', redirect: '/admin/sub-page' },
       { path: '/admin/index', name: '管理员首页', component: './Admin' },
-      { path: '/admin/usermanage', name: '用户管理', component: './Admin/UserManage' },
+      { path: '/admin/user_manage', name: '用户管理', component: './Admin/UserManage' },
       { path: '/admin/adduser', name: '新增用户', component: './Admin/AddUser' },
+      { path: '/admin/chart_manage', name: '图标管理', component: './Admin/ChartManage' },
     ],
   },
   { icon: 'icon-yonghu', name: '用户信息', path: '/userinfo', component: './UserInfo/' },

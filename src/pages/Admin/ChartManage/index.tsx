@@ -1,7 +1,5 @@
-import {
-  deleteChartUsingPOST,
-  listMyChartByPageUsingPOST,
-} from '@/services/ShierBI/ChartController';
+//管理员操作表格
+import { deleteChartUsingPOST, listChartByPageUsingPOST } from '@/services/ShierBI/ChartController';
 import { useModel } from '@@/exports';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Avatar, Button, Card, Col, Divider, List, message, Modal, Row } from 'antd';
@@ -9,7 +7,7 @@ import Search from 'antd/es/input/Search';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useState } from 'react';
 
-const MyChartPage: React.FC = () => {
+const AminChartPage: React.FC = () => {
   /**
    * 初始值
    */
@@ -28,12 +26,12 @@ const MyChartPage: React.FC = () => {
   const [chartList, setChartList] = useState<API.Chart[]>();
   const [chartTotal, setChartTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
+
   /**
    * 获取当前用户
    */
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-
 
   /**
    * 加载图表数据
@@ -41,7 +39,7 @@ const MyChartPage: React.FC = () => {
   const loadData = async () => {
     setLoading(loading);
     try {
-      let res = await listMyChartByPageUsingPOST(searchParams);
+      let res = await listChartByPageUsingPOST(searchParams);
       if (res.data) {
         setChartList(res.data.records ?? []);
         setChartTotal(res.data.total ?? 0);
@@ -69,7 +67,6 @@ const MyChartPage: React.FC = () => {
     loadData();
   }, [searchParams]);
 
-
   /**
    * 删除图表
    * @param chartId
@@ -84,7 +81,7 @@ const MyChartPage: React.FC = () => {
       onOk: async () => {
         try {
           const res = await deleteChartUsingPOST({ id: chartId });
-          console.log("res:",res.data);
+          console.log('res:', res.data);
           if (res.data) {
             message.success('删除成功');
             // 删除成功后重新加载图表数据
@@ -100,7 +97,7 @@ const MyChartPage: React.FC = () => {
   };
 
   return (
-    <div className="my-chart-page">
+    <div className="admin-chart-page">
       <div className="margin-20">
         <Search
           placeholder="请输入图标名称搜索"
@@ -194,4 +191,4 @@ const MyChartPage: React.FC = () => {
     </div>
   );
 };
-export default MyChartPage;
+export default AminChartPage;
