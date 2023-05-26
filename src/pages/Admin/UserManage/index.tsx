@@ -172,7 +172,6 @@ const columns: ProColumns<API.User>[] = [
           title="删除用户"
           description="你确定要删除他吗？"
           onConfirm={async (e) => {
-            console.log(e);
             console.log(record.id);
             const id = record.id;
             const isDelete = await deleteUserUsingPOST({ id: id });
