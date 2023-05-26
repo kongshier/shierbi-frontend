@@ -67,6 +67,7 @@ const AminChartPage: React.FC = () => {
     loadData();
   }, [searchParams]);
 
+
   /**
    * 删除图表
    * @param chartId
@@ -111,7 +112,6 @@ const AminChartPage: React.FC = () => {
           }}
         />
       </div>
-
       <List
         grid={{
           gutter: 16,
