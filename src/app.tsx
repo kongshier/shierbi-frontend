@@ -1,12 +1,13 @@
 import Footer from '@/components/Footer';
 import { Question } from '@/components/RightContent';
-import { LinkOutlined } from '@ant-design/icons';
+import {FileMarkdownTwoTone, LinkOutlined} from '@ant-design/icons';
 import { SettingDrawer } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history, Link } from '@umijs/max';
 import { AvatarDropdown, AvatarName } from './components/RightContent/AvatarDropdown';
 import { errorConfig } from './requestConfig';
 import {getLoginUserUsingGET} from "@/services/ShierBI/UserController";
+import { createFromIconfontCN } from '@ant-design/icons';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -39,13 +40,17 @@ export async function getInitialState(): Promise<{
   return {}
 }
 
+const MyIcon = createFromIconfontCN({
+  scriptUrl: '//at.alicdn.com/t/c/font_4064432_3vhahxl55x3.js', // 在 iconfont.cn 上生成
+});
+
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
     title: '十二智能 BI',
     logo: 'http://picgo.kongshier.top/typoraImages/index_logo.png',
-    iconfontUrl:'//at.alicdn.com/t/c/font_4064432_j1mfpb4mtss.js',
-    actionsRender: () => [<Question key="doc" />],
+    iconfontUrl:'//at.alicdn.com/t/c/font_4064432_3vhahxl55x3.js',
+
     // 显示头像
     avatarProps: {
       src: initialState?.currentUser?.userAvatar,
@@ -58,19 +63,12 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     waterMarkProps: {
       content: initialState?.currentUser?.userName,
     },
-    footerRender: () => <Footer />,
-    onPageChange: () => {
-      const { location } = history;
-      // 如果没有登录，重定向到 login
-      if (!initialState?.currentUser && location.pathname !== loginPath) {
-        history.push(loginPath);
-      }
-    },
+
     links: isDev
       ? [
           <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-            <LinkOutlined />
-            <span>OpenAPI 文档</span>
+            <MyIcon type={"icon-wendangguanli"}/>
+            <span>OpenAPI 接口文档</span>
           </Link>,
         ]
       : [],
@@ -86,7 +84,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
           <SettingDrawer
             disableUrlParams
             enableDarkTheme
-            // settings={initialState?.settings}
             onSettingChange={(settings) => {
               setInitialState((preInitialState) => ({
                 ...preInitialState,
@@ -97,7 +94,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         </>
       );
     },
-    // ...initialState?.settings,
   };
 };
 

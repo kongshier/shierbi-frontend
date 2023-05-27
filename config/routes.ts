@@ -9,8 +9,8 @@
     ],
   },
   { path: '/', redirect: '/add_chart' },
-  { path: '/welcome', name: '欢迎', icon: 'icon-icon_huanyingmoshi', component: './Welcome' },
-  { path: '/add_chart', name: 'BI智能图表分析', icon: 'icon-tubiao1', component: './AddChart' },
+  { path: '/welcome', name: '欢迎', icon: 'icon-huanying1', component: './Welcome' },
+  { path: '/add_chart', name: 'BI智能图表', icon: 'icon-tubiao1', component: './AddChart' },
   { path: '/my_chart', name: '我的图表', icon: 'icon-bingtutubiao', component: './MyChart' },
   {
     path: '/admin',

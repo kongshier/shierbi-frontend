@@ -19,7 +19,7 @@ export const CSDN_LINK = 'https://blog.csdn.net/qq_56098191';
 /**
  * 默认头像
  */
-export const DEFAULT_AVATAR_URL = 'http://picgo.kongshier.top/typoraImages/48.jpeg';
+export const DEFAULT_AVATAR_URL = 'https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/56d6f5ad1d8747f484d6c2666b5a7961~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?';
 
 export const selectGender = [
   { value: '男', label: '男' },

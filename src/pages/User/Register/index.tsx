@@ -103,11 +103,16 @@ const Login: React.FC = () => {
                   size: 'large',
                   prefix: <UserOutlined />,
                 }}
-                placeholder={'请输入账户名'}
+                placeholder={'请输入账户'}
                 rules={[
                   {
                     required: true,
-                    message: '账户名是必填项！',
+                    message: '账户是必填项！',
+                  },
+                  {
+                    min: 4,
+                    type: 'string',
+                    message: '账号不能小于4位！',
                   },
                 ]}
               />
@@ -123,6 +128,11 @@ const Login: React.FC = () => {
                     required: true,
                     message: '密码是必填项！',
                   },
+                  {
+                    min: 8,
+                    type: 'string',
+                    message: '密码不能小于8位！',
+                  },
                 ]}
               />
               <ProFormText.Password
@@ -136,6 +146,11 @@ const Login: React.FC = () => {
                   {
                     required: true,
                     message: '密码是必填项！',
+                  },
+                  {
+                    min: 8,
+                    type: 'string',
+                    message: '密码不能小于8位！',
                   },
                 ]}
               />

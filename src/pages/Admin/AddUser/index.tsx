@@ -136,7 +136,6 @@ const Login: React.FC = () => {
                   },
                 ]}
               />
-
               <ProFormSelect
                 name="userAvatar"
                 fieldProps={{
