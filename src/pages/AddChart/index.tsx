@@ -90,6 +90,7 @@ const AddChart: React.FC = () => {
                     { value: '地图', label: '地图' },
                     { value: '树图', label: '树图' },
                     { value: '折线图', label: '折线图' },
+                    { value: '3D 折线图', label: '3D 折线图' },
                     { value: '柱状图', label: '柱状图' },
                     { value: '雷达图', label: '雷达图' },
                     { value: '条形图', label: '条形图' },

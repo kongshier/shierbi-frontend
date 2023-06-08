@@ -1,4 +1,9 @@
 declare namespace API {
+  type addUsingGETParams = {
+    /** name */
+    name?: string;
+  };
+
   type BaseResponseBiResponse_ = {
     code?: number;
     data?: BiResponse;
@@ -74,8 +79,10 @@ declare namespace API {
   type Chart = {
     chartData?: string;
     chartName?: string;
+    chartStatus?: string;
     chartType?: string;
     createTime?: string;
+    execMessage?: string;
     genChart?: string;
     genResult?: string;
     goal?: string;
@@ -128,6 +135,12 @@ declare namespace API {
 
   type DeleteRequest = {
     id?: number;
+  };
+
+  type genChartByAiAsyncUsingPOSTParams = {
+    chartName?: string;
+    chartType?: string;
+    goal?: string;
   };
 
   type genChartByAiUsingPOSTParams = {
