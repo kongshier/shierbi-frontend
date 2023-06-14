@@ -1,6 +1,3 @@
-import Footer from '@/components/Footer';
-import { Question } from '@/components/RightContent';
-import {FileMarkdownTwoTone, LinkOutlined} from '@ant-design/icons';
 import { SettingDrawer } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history, Link } from '@umijs/max';

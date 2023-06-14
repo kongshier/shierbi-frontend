@@ -8,7 +8,6 @@
       { component: './404' },
     ],
   },
-  // { path: '/', redirect: '/welcome' },
   { path: '/welcome', name: '欢迎', icon: 'icon-huanying1', component: './Welcome' },
   { path: '/add_chart', name: 'BI智能图表(同步)', icon: 'icon-tubiao1', component: './AddChart' },
   { path: '/add_chart_async', name: 'BI智能图表(异步)', icon: 'icon-tubiao1', component: './AsyncAddChart' },

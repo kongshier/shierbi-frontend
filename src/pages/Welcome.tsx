@@ -1,4 +1,4 @@
-import { HeartTwoTone, SmileTwoTone } from '@ant-design/icons';
+import {HeartTwoTone, LoadingOutlined, SmileTwoTone} from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import { Alert, Card, Typography } from 'antd';
 import React from 'react';
@@ -18,9 +18,11 @@ const Welcome: React.FC = () => {
         <Alert
           message={'欢迎使用我们的智能BI平台！。'}
           type="success"
+
           showIcon
           banner
           style={{
+
             margin: -12,
             marginBottom: 48,
           }}
@@ -40,22 +42,22 @@ const Welcome: React.FC = () => {
           <pre>{blockContent}</pre>
         </Paragraph>
         <Title level={2} style={{}}>
-          平台特点
+          十二智能BI特点
         </Title>
-        <Paragraph>与传统的BI系统相比，我们的平台具有以下突出特点</Paragraph>
-        <Paragraph>
+        <Paragraph>本智能BI系统与传统BI系统相比，具有以下突出特点</Paragraph>
+        <Paragraph strong>
           1.
           自动化分析：无需编写复杂的查询语言或进行手动分析，您只需将原始数据集导入平台，输入您想要分析的目标，我们的AI技术将自动生成符合要求的图表和分析结论。这使得数据分析变得简单且高效。
         </Paragraph>
-        <Paragraph>
+        <Paragraph strong>
           2.
           简单易用：我们的平台专为不具备数据分析经验的用户设计。通过简单的界面和指导，您只需输入目标即可快速完成数据分析，无需深入了解复杂的分析技术和工具。
         </Paragraph>
-        <Paragraph>
+        <Paragraph strong>
           3.
           图表管理：我们的平台提供了图表管理功能，让您可以轻松保存、组织和共享生成的图表。您可以创建自定义的仪表板，将多个图表组合在一起，以便更好地展示和比较数据。
         </Paragraph>
-        <Paragraph>
+        <Paragraph strong>
           4.
           异步生成：平台支持异步生成图表和分析结果，即使处理大量数据时也能保持高效。您可以提交分析任务后继续其他工作，平台会在后台自动处理数据并生成结果，您可以随时返回查看分析完成的图表和结论。
         </Paragraph>

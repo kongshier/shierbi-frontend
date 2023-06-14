@@ -42,11 +42,12 @@ const UserInfo: React.FC = () => {
     <>
       <Divider style={{ fontWeight: 'bold', color: 'blue' }}>用户头像</Divider>
       <Descriptions style={{ margin: '20px', marginLeft: '650px' }}>
-        <Descriptions.Item>
+        <Descriptions.Item style={{borderRadius:'50%'}}>
           <Image
             src={myUser.userAvatar === null ? DEFAULT_AVATAR_URL : myUser.userAvatar}
             width={300}
             height={300}
+            style={{borderRadius:'50%'}}
           />
         </Descriptions.Item>
       </Descriptions>
