@@ -225,19 +225,25 @@ declare namespace API {
 
   type User = {
     createTime?: string;
+    email?: string;
+    gender?: string;
     id?: number;
     isDelete?: number;
+    phone?: string;
     updateTime?: string;
     userAccount?: string;
     userAvatar?: string;
+    userCode?: string;
     userName?: string;
     userPassword?: string;
     userRole?: string;
+    userStatus?: number;
   };
 
   type UserAddRequest = {
     userAccount?: string;
     userAvatar?: string;
+    userCode?: string;
     userName?: string;
     userPassword?: string;
     userRole?: string;
@@ -250,36 +256,52 @@ declare namespace API {
 
   type UserQueryRequest = {
     current?: number;
+    email?: string;
+    gender?: string;
     id?: number;
     pageSize?: number;
+    phone?: string;
     sortField?: string;
     sortOrder?: string;
+    userCode?: string;
     userName?: string;
     userRole?: string;
+    userStatus?: number;
   };
 
   type UserRegisterRequest = {
     checkPassword?: string;
     userAccount?: string;
+    userCode?: string;
     userPassword?: string;
   };
 
   type UserUpdateMyRequest = {
+    email?: string;
+    gender?: string;
+    phone?: string;
     userAccount?: string;
     userAvatar?: string;
+    userCode?: string;
     userName?: string;
     userPassword?: string;
+    userStatus?: number;
   };
 
   type UserUpdateRequest = {
+    email?: string;
+    gender?: string;
     id?: number;
     isDelete?: number;
+    phone?: string;
     updateTime?: string;
     userAccount?: string;
     userAvatar?: string;
+    userCode?: string;
     userName?: string;
     userPassword?: string;
     userRole?: string;
+    userStatus?: number;
   };
 
   type UserVO = {

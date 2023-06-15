@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** 管理员创建用户 POST /api/user/add */
+/** 管理员添加用户 POST /api/user/add */
 export async function addUserUsingPOST(body: API.UserAddRequest, options?: { [key: string]: any }) {
   return request<API.BaseResponseLong_>('/api/user/add', {
     method: 'POST',

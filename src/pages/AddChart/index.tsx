@@ -124,6 +124,7 @@ const AddChart: React.FC = () => {
                     确定上传
                   </Button>
                   <Button htmlType="reset">重置内容</Button>
+                  <Button htmlType="reset">获取测试数据</Button>
                 </Space>
               </Form.Item>
             </Form>

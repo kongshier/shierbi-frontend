@@ -1,4 +1,4 @@
-import { DEFAULT_AVATAR_URL, selectAvatarUrl } from '@/constants';
+import { DEFAULT_AVATAR_URL, selectAvatarUrl, selectGender } from '@/constants';
 import { getLoginUserUsingGET, updateMyUserUsingPOST } from '@/services/ShierBI/UserController';
 import { ModalForm, ProForm, ProFormText } from '@ant-design/pro-components';
 import { ProFormSelect } from '@ant-design/pro-form';
@@ -20,6 +20,11 @@ const UserInfo: React.FC = () => {
     userAvatar: '',
     userPassword: '',
     userRole: 'user',
+    gender: '',
+    phone: '',
+    email: '',
+    userStatus: '0',
+    userCode: '',
     createTime: '',
     updateTime: '',
   });
@@ -37,12 +42,14 @@ const UserInfo: React.FC = () => {
 
     fetchData();
   }, []);
+
   console.log('currentUser12312:', myUser);
+
   return (
     <>
       <Divider style={{ fontWeight: 'bold', color: 'blue' }}>用户头像</Divider>
       <Descriptions style={{ margin: '20px', marginLeft: '650px' }}>
-        <Descriptions.Item style={{borderRadius:'50%'}}>
+        <Descriptions.Item style={{ borderRadius: '50%' }}>
           <Image
             src={myUser.userAvatar === null ? DEFAULT_AVATAR_URL : myUser.userAvatar}
             width={300}
@@ -61,29 +68,45 @@ const UserInfo: React.FC = () => {
         <Descriptions.Item style={{ textAlign: 'center' }} label="用户名：">
           {myUser.userName}
         </Descriptions.Item>
+        <Descriptions.Item style={{ textAlign: 'center' }} label="性别：">
+          {myUser.gender}
+        </Descriptions.Item>
         <Descriptions.Item style={{ textAlign: 'center' }} label="用户账户：">
           {myUser.userAccount}
         </Descriptions.Item>
-        <Descriptions.Item style={{ textAlign: 'center' }} label="用户角色：">
+        <Descriptions.Item style={{ textAlign: 'center' }} label="我的身份：">
           {myUser.userRole === 'user' ? '普通用户' : '管理员'}
         </Descriptions.Item>
-        <Descriptions.Item style={{ textAlign: 'center' }} label="创建时间：">
+        <Descriptions.Item style={{ textAlign: 'center' }} label="我的编号：">
+          {myUser.userCode}
+        </Descriptions.Item>
+        <Descriptions.Item style={{ textAlign: 'center' }} label="手机号码：">
+          {myUser.phone === null ? '尚未填写手机号码！' : myUser.phone}
+        </Descriptions.Item>
+        <Descriptions.Item style={{ textAlign: 'center' }} label="我的邮箱：">
+          {myUser.email === null ? '尚未填写邮箱！' : myUser.email}
+        </Descriptions.Item>
+        <Descriptions.Item style={{ textAlign: 'center', color: '#1bf113' }} label="我的状态：">
+          {/*@ts-ignore*/}
+          {myUser.userStatus === 0 ? '正常在线' : '账号异常'}
+        </Descriptions.Item>
+        <Descriptions.Item style={{ textAlign: 'center' }} label="用户创建时间：">
           {myUser.createTime}
         </Descriptions.Item>
-        <Descriptions.Item style={{ textAlign: 'center' }} label="更新时间：">
+        <Descriptions.Item style={{ textAlign: 'center' }} label="用户更新时间：">
           {myUser.updateTime}
         </Descriptions.Item>
       </Descriptions>
 
       <ModalForm<API.UserUpdateMyRequest>
-        title="修改本用户信息"
+        title="修改我的信息"
         trigger={
           <Button
             type="primary"
             shape="round"
             style={{ marginTop: '100px', width: '250px', marginLeft: '650px' }}
           >
-            修改信息
+            修改我的信息
           </Button>
         }
         autoFocusFirstInput
@@ -97,10 +120,12 @@ const UserInfo: React.FC = () => {
           //点击发起请求
           const isModify = await updateMyUserUsingPOST(values);
           if (isModify) {
-            message.success('修改成功');
+            message.success('修改成功！');
             // 刷新用户信息表单
             location.reload();
             return true;
+          }else {
+            message.error("修改失败！")
           }
           return false;
         }}
@@ -112,6 +137,12 @@ const UserInfo: React.FC = () => {
             label="用户名"
             placeholder="请输入用户名"
             initialValue={myUser.userName}
+            rules={[
+              {
+                required: true,
+                message: '请输入选择用户头像!',
+              },
+            ]}
           />
           <ProFormText
             width="md"
@@ -119,20 +150,61 @@ const UserInfo: React.FC = () => {
             label="账号名称"
             placeholder="你想修改的账号名称"
             initialValue={myUser.userAccount}
+            rules={[
+              {
+                required: true,
+                message: '请输入选择用户头像!',
+              },
+            ]}
           />
           <ProFormText
             width="md"
             name="userPassword"
-            label="输入密码"
-            placeholder="修改密码"
+            label="修改密码"
+            placeholder="修改修改后的密码"
             initialValue={myUser.userPassword}
+            rules={[
+              {
+                required: true,
+                message: '请输入选择用户头像!',
+              },
+            ]}
+          />
+          <ProFormText
+            width="md"
+            name="phone"
+            label="修改手机号码"
+            placeholder="修改手机号码密码"
+            initialValue={myUser.phone}
+          />
+          <ProFormSelect
+            width="md"
+            name="gender"
+            label="修改性别"
+            placeholder="修改我的性别"
+            options={selectGender}
+            initialValue={myUser.gender}
+          />
+          <ProFormText
+            width="md"
+            name="email"
+            label="修改邮箱"
+            placeholder="修改修改后的邮箱"
+            initialValue={myUser.email}
+          />
+          <ProFormText
+            width="md"
+            name="userCode"
+            label="修改我的编码"
+            placeholder="输入修改后的编码"
+            initialValue={myUser.userCode}
           />
           <ProFormSelect
             name="userAvatar"
             fieldProps={{
               size: 'large',
             }}
-            label="用户头像"
+            label="修改头像"
             options={selectAvatarUrl}
             placeholder={'请选择用户头像 '}
             initialValue={myUser.userAvatar}

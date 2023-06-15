@@ -78,9 +78,14 @@ const Login: React.FC = () => {
           title="十二智能 BI"
           subTitle={
             <a href={WELCOME} target="_blank">
-              十二智能 BI 来源编程导航
+              十二智能 BI
             </a>
           }
+          submitter={{
+            searchConfig: {
+              submitText: '登录',
+            },
+          }}
           onFinish={async (values) => {
             await handleSubmit(values as API.UserLoginRequest);
           }}

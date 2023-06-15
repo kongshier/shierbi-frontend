@@ -1,4 +1,4 @@
-import { selectAvatarUrl, selectUserRole } from '@/constants';
+import {selectAvatarUrl, selectGender, selectUserRole} from '@/constants';
 import {
   deleteUserUsingPOST,
   listUserByPageUsingPOST,
@@ -32,14 +32,6 @@ const columns: ProColumns<API.User>[] = [
     align: 'center',
   },
   {
-    title: '用户名',
-    dataIndex: 'userName',
-    copyable: true,
-    ellipsis: true,
-    tip: '用户名称',
-    align: 'center',
-  },
-  {
     title: '用户账户',
     dataIndex: 'userAccount',
     copyable: true,
@@ -56,6 +48,55 @@ const columns: ProColumns<API.User>[] = [
       </div>
     ),
     copyable: true,
+    align: 'center',
+  },
+  {
+    title: '用户名',
+    dataIndex: 'userName',
+    copyable: true,
+    ellipsis: true,
+    tip: '用户名称',
+    align: 'center',
+  },
+  {
+    title: '编号',
+    dataIndex: 'userCode',
+    copyable: true,
+    align: 'center',
+  },
+  {
+    title: '电话',
+    dataIndex: 'phone',
+    copyable: true,
+    align: 'center',
+  },
+  {
+    title: '邮件',
+    dataIndex: 'email',
+    copyable: true,
+    align: 'center',
+  },
+  {
+    title: '性别',
+    dataIndex: 'gender',
+    // 枚举
+    valueType: 'select',
+    valueEnum: {
+      男: { text: <Tag color="success">男</Tag> },
+      女: { text: <Tag color="error">女</Tag> },
+    },
+    align: 'center',
+  },
+  {
+    title: '用户状态',
+    dataIndex: 'userStatus',
+    // 枚举
+    valueType: 'select',
+    valueEnum: {
+      0: { text: <Tag color="success">正常</Tag>, status: 'Success' },
+      1: { text: <Tag color="warning">注销</Tag>, status: 'Default' },
+      2: { text: <Tag color="error">封号</Tag>, status: 'Error' },
+    },
     align: 'center',
   },
   {
@@ -133,6 +174,59 @@ const columns: ProColumns<API.User>[] = [
             placeholder="请修改密码"
             initialValue={record.userPassword}
           />
+          <ProFormText
+            width="md"
+            name="userCode"
+            label="用户编号"
+            placeholder="请输入编号"
+            initialValue={record.userCode}
+          />
+          <ProFormText
+            width="md"
+            name="phone"
+            label="手机号"
+            placeholder="请输入手机号"
+            initialValue={record.phone}
+          />
+          <ProFormText
+            width="md"
+            name="email"
+            label="邮箱"
+            placeholder="请输入邮箱"
+            initialValue={record.email}
+          />
+          <ProFormSelect
+            name="gender"
+            fieldProps={{
+              size: 'large',
+            }}
+            label="性别"
+            options={selectGender}
+            placeholder="请选择性别"
+            initialValue={record.gender}
+            rules={[
+              {
+                required: true,
+                message: '请选择性别',
+              },
+            ]}
+          />
+          <ProFormSelect
+            name="userRole"
+            fieldProps={{
+              size: 'large',
+            }}
+            label="用户角色"
+            options={selectUserRole}
+            initialValue={record.userRole}
+            placeholder={'选择用户角色'}
+            rules={[
+              {
+                required: true,
+                message: '请选择用户角色',
+              },
+            ]}
+          />
           <ProFormSelect
             name="userAvatar"
             fieldProps={{
@@ -172,8 +266,7 @@ const columns: ProColumns<API.User>[] = [
           title="删除用户"
           description="你确定要删除他吗？"
           onConfirm={async (e) => {
-            console.log(e);
-            console.log(record.id);
+            console.log("id",record.id);
             const id = record.id;
             const isDelete = await deleteUserUsingPOST({ id: id });
             if (isDelete) {
@@ -199,7 +292,6 @@ const columns: ProColumns<API.User>[] = [
 
 export default () => {
   const actionRef = useRef<ActionType>();
-
   return (
     <ProTable<API.UserQueryRequest>
       columns={columns}

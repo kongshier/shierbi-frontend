@@ -1,8 +1,15 @@
 import Footer from '@/components/Footer';
-import { selectAvatarUrl, selectUserRole, SYSTEM_LOGO, WELCOME } from '@/constants';
+import {
+  selectAvatarUrl,
+  selectGender,
+  selectUserRole,
+  selectUserStatus,
+  SYSTEM_LOGO,
+  WELCOME,
+} from '@/constants';
 import { addUserUsingPOST, getLoginUserUsingGET } from '@/services/ShierBI/UserController';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { LoginForm, ProFormText } from '@ant-design/pro-components';
+import {LoginForm, ProForm, ProFormText} from '@ant-design/pro-components';
 import { ProFormSelect } from '@ant-design/pro-form/lib';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
 import { Helmet, useModel } from '@umijs/max';
@@ -10,6 +17,7 @@ import { message, Tabs } from 'antd';
 import React from 'react';
 import { flushSync } from 'react-dom';
 import Settings from '../../../../config/defaultSettings';
+
 
 const Login: React.FC = () => {
   const { setInitialState } = useModel('@@initialState');
@@ -74,9 +82,14 @@ const Login: React.FC = () => {
           title="十二智能 BI"
           subTitle={
             <a href={WELCOME} target="_blank">
-              十二智能 BI 来源编程导航
+              十二智能 BI
             </a>
           }
+          submitter={{
+            searchConfig: {
+              submitText: '添加新用户',
+            },
+          }}
           onFinish={async (values) => {
             await handleSubmit(values as API.UserLoginRequest);
           }}
@@ -100,6 +113,7 @@ const Login: React.FC = () => {
                   },
                 ]}
               />
+
               <ProFormText
                 name="userAccount"
                 fieldProps={{
@@ -151,7 +165,6 @@ const Login: React.FC = () => {
                   },
                 ]}
               />
-
               <ProFormSelect
                 name="userRole"
                 fieldProps={{
@@ -166,6 +179,49 @@ const Login: React.FC = () => {
                     message: '请选择用户角色',
                   },
                 ]}
+              />
+              <ProFormSelect
+                name="gender"
+                fieldProps={{
+                  size: 'large',
+                }}
+                label="用户性别"
+                options={selectGender}
+                placeholder={'请选择用户性别 '}
+                rules={[{}]}
+              />
+              <ProFormText
+                name="email"
+                fieldProps={{
+                  size: 'large',
+                }}
+                label="用户邮箱"
+                placeholder={'请输入用户邮箱 '}
+              />
+              <ProFormText
+                name="phone"
+                fieldProps={{
+                  size: 'large',
+                }}
+                label="用户手机号码"
+                placeholder={'请输入用户手机号码 '}
+              />
+              <ProFormText
+                name="userCode"
+                fieldProps={{
+                  size: 'large',
+                }}
+                label="用户编号"
+                placeholder={'请输入用户用户编号 '}
+              />
+              <ProFormSelect
+                name="userStatus"
+                fieldProps={{
+                  size: 'large',
+                }}
+                label="用户状态"
+                options={selectUserStatus}
+                placeholder={'请选择用户当前状态 '}
               />
             </>
           }

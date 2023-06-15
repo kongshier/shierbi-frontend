@@ -10,9 +10,9 @@
 export const SYSTEM_LOGO = 'http://picgo.kongshier.top/typoraImages/systemlogo.png';
 
 /**
- * 知识星球介绍
+ * shier介绍
  */
-export const WELCOME = 'https://yupi.icu/';
+export const WELCOME = 'https://blog.csdn.net/qq_56098191';
 
 export const CSDN_LINK = 'https://blog.csdn.net/qq_56098191';
 

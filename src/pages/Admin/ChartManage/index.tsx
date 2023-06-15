@@ -1,5 +1,6 @@
 //管理员操作表格
 import { deleteChartUsingPOST, listChartByPageUsingPOST } from '@/services/ShierBI/ChartController';
+import { listUserByPageUsingPOST } from '@/services/ShierBI/UserController';
 import { useModel } from '@@/exports';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Avatar, Button, Card, Col, Divider, List, message, Modal, Row } from 'antd';
@@ -26,12 +27,13 @@ const AminChartPage: React.FC = () => {
   const [chartList, setChartList] = useState<API.Chart[]>();
   const [chartTotal, setChartTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
-
+  const [userInfo ,setUserInfo] = useState<API.User>();
   /**
    * 获取当前用户
    */
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
+
 
   /**
    * 加载图表数据
@@ -40,6 +42,7 @@ const AminChartPage: React.FC = () => {
     setLoading(loading);
     try {
       let res = await listChartByPageUsingPOST(searchParams);
+      console.log('获取关于图表的信息', res.data);
       if (res.data) {
         setChartList(res.data.records ?? []);
         setChartTotal(res.data.total ?? 0);
@@ -49,6 +52,7 @@ const AminChartPage: React.FC = () => {
             const chartOption = JSON.parse(data.genChart ?? '{}');
             // 取出title并且设置为 undefined
             chartOption.title = undefined;
+            console.log('id', data.userId);
             data.genChart = JSON.stringify(chartOption);
           });
         }
@@ -60,13 +64,13 @@ const AminChartPage: React.FC = () => {
     }
     setLoading(false);
   };
+
   /**
    * 变化时执行此处
    */
-  useEffect(() => {
+  useEffect( ()  => {
     loadData();
   }, [searchParams]);
-
 
   /**
    * 删除图表
@@ -76,13 +80,14 @@ const AminChartPage: React.FC = () => {
     Modal.confirm({
       title: '确认删除',
       icon: <ExclamationCircleOutlined />,
-      content: '确定要删除这个图表吗？',
+      content: (
+        '确定要删除这个图表吗？'
+      ),
       okText: '确认',
       cancelText: '取消',
       onOk: async () => {
         try {
           const res = await deleteChartUsingPOST({ id: chartId });
-          console.log('res:', res.data);
           if (res.data) {
             message.success('删除成功');
             // 删除成功后重新加载图表数据

@@ -76,9 +76,14 @@ const Login: React.FC = () => {
           title="十二智能 BI"
           subTitle={
             <a href={WELCOME} target="_blank">
-              十二智能 BI 来源编程导航
+              十二智能 BI
             </a>
           }
+          submitter={{
+            searchConfig: {
+              submitText: '注册',
+            },
+          }}
           onFinish={async (values) => {
             await handleSubmit(values as API.UserLoginRequest);
           }}
@@ -153,6 +158,15 @@ const Login: React.FC = () => {
                     message: '密码不能小于8位！',
                   },
                 ]}
+              />
+              <ProFormText
+                name="userCode"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <UserOutlined />,
+                }}
+                placeholder={'请输入编号'}
+                rules={[]}
               />
             </>
           )}
