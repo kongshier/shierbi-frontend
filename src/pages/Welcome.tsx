@@ -7,13 +7,6 @@ import React from 'react';
  * 每个单独的卡片，为了复用样式抽成了组件
  */
 
-// const contentStyle: React.CSSProperties = {
-//   margin: '5px',
-//   color: '#fff',
-//   textAlign: 'center',
-//   width: '1645px',
-// };
-
 const { Title, Paragraph } = Typography;
 
 const blockContent = `通过我们的智能BI平台，即使对数据分析一无所知的同学也能够轻松完成复杂的数据分析任务，大幅节约人力成本。利用AI接口和自动化技术，我们为您提供了快速、准确和可靠的数据洞察力。立即体验我们的智能BI平台，让数据分析变得简单而智能！`;
@@ -33,9 +26,8 @@ const Welcome: React.FC = () => {
     <PageContainer content={' 欢迎来到不一样的智能BI平台'}>
       <Card>
         <Alert
-          message={'欢迎使用我们的智能BI平台！。'}
+          message={'欢迎使用十二的智能BI平台！'}
           type="success"
-
           showIcon
           banner
           style={{
@@ -50,18 +42,18 @@ const Welcome: React.FC = () => {
             textAlign: 'center',
           }}
         >
-          <SmileTwoTone style={{color:"#0015ff"}} /> 十二智能 BI <HeartTwoTone twoToneColor="#eb2f96" /> You
+          <SmileTwoTone style={{color:"#0015ff"}} /> 智能 BI 平台 <HeartTwoTone twoToneColor="#eb2f96" />
         </Typography.Title>
         <Paragraph style={{color:"blue"}}>
           我们的智能BI平台是一个革命性的数据分析工具，为用户提供了轻松、快速且智能化的数据分析体验。
         </Paragraph>
-        <Paragraph style={{color:"#0d9d8e"}}>
+        <Paragraph style={{color:"#0d9d8e",fontWeight:'bold'}}>
           <pre>{blockContent}</pre>
         </Paragraph>
         <Title level={2} style={{color:"#0015ff"}}>
           智能BI介绍
         </Title>
-        <Paragraph style={{color:"#120bfc"}}>
+        <Paragraph style={{color:"#120bfc",fontWeight:'bold'}}>
           <pre>{BIIntroduce}</pre>
         </Paragraph>
         <Title level={2} style={{color:"#0015ff"}}>

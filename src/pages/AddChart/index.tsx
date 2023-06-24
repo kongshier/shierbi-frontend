@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import ReactECharts from 'echarts-for-react';
+import {Link} from "@@/exports";
 
 const AddChart: React.FC = () => {
   const [chart, setChart] = useState<API.BiResponse>();
@@ -86,23 +87,16 @@ const AddChart: React.FC = () => {
               >
                 <Select
                   options={[
-                    { value: '饼图', label: '饼图' },
-                    { value: '地图', label: '地图' },
-                    { value: '树图', label: '树图' },
                     { value: '折线图', label: '折线图' },
-                    { value: '3D 折线图', label: '3D 折线图' },
                     { value: '柱状图', label: '柱状图' },
                     { value: '雷达图', label: '雷达图' },
                     { value: '条形图', label: '条形图' },
+                    { value: '散点图', label: '散点图' },
+                    { value: '饼图', label: '饼图' },
+                    { value: '树图', label: '树图' },
                     { value: '热力图', label: '热力图' },
                     { value: '漏斗图', label: '漏斗图' },
-                    { value: '散点图', label: '散点图' },
-                    { value: '仪表盘', label: '仪表盘' },
-                    { value: 'K线图', label: 'K线图' },
-                    { value: '长图表', label: '长图表' },
                     { value: '区域图', label: '区域图' },
-                    { value: '面积热力图', label: '面积热力图' },
-                    { value: '三维散点图', label: '三维散点图' },
                   ]}
                 ></Select>
               </Form.Item>
@@ -124,7 +118,15 @@ const AddChart: React.FC = () => {
                     确定上传
                   </Button>
                   <Button htmlType="reset">重置内容</Button>
-                  <Button htmlType="reset">获取测试数据</Button>
+
+                  <a href="https://www.yuque.com/kcsshier/zpovmy/lab4hgt8rf9d6sia?singleDoc# 《智能BI系统测试数据下载》" target='_blank'>
+                    <Button
+                      block
+                      shape='round'
+                    >
+                      获取测试数据
+                    </Button>
+                  </a>
                 </Space>
               </Form.Item>
             </Form>

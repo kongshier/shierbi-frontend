@@ -73,7 +73,7 @@ const Login: React.FC = () => {
             maxWidth: '75vw',
           }}
           logo={<img alt="logo" src={SYSTEM_LOGO} />}
-          title="十二智能 BI"
+          title="智能 BI 数据分析平台"
           subTitle={
             <a href={WELCOME} target="_blank">
               十二智能 BI

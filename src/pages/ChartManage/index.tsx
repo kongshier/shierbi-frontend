@@ -105,6 +105,7 @@ const MyChartPage: React.FC = () => {
     });
   };
 
+
   return (
     <div className="my-chart-page">
       <div className="margin-20">
@@ -182,10 +183,11 @@ const MyChartPage: React.FC = () => {
                         fontSize: '16px',
                       }}
                     >
-                      {'分析目标：' + item.goal}
+                      {'图表标题：' + item.goal}
                     </p>
+
                     <List.Item.Meta
-                      style={{ textAlign: 'right' }}
+                      style={{ textAlign: 'left', fontWeight: 'bold' }}
                       description={item.chartType ? '图表类型：' + item.chartType : undefined}
                     />
                     <ReactECharts option={item.genChart && JSON.parse(item.genChart)} />
@@ -203,8 +205,12 @@ const MyChartPage: React.FC = () => {
                       智能分析结果
                     </Divider>
                     <p style={{ fontWeight: 'bold', color: '#0b93a1' }}>{item.genResult}</p>
-                    <Row justify="end">
-                      <Col>
+
+                    <Row>
+                      <Col style={{color:'black',fontWeight:'bold'}}>
+                        {'图表生成时间：' + new Date(item.createTime).toLocaleString()}
+                      </Col>
+                      <Col push={14} >
                         <Button danger onClick={() => handleDelete(item.id)}>
                           删除
                         </Button>
@@ -216,8 +222,8 @@ const MyChartPage: React.FC = () => {
                   <>
                     <Result status="error" title="图表生成失败" subTitle={item.execMessage} />
                     <Row justify="end">
-                      <Col style={{paddingRight: '10px'}}>
-                        <Button type="primary" onClick={() => message.warning("敬请期待")}>
+                      <Col style={{ paddingRight: '10px' }}>
+                        <Button type="primary" onClick={() => message.warning('敬请期待')}>
                           重试
                         </Button>
                       </Col>

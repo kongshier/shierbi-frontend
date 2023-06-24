@@ -75,10 +75,10 @@ const Login: React.FC = () => {
             maxWidth: '75vw',
           }}
           logo={<img alt="logo" src={SYSTEM_LOGO} />}
-          title="十二智能 BI"
+          title="智能 BI 数据分析平台"
           subTitle={
             <a href={WELCOME} target="_blank">
-              十二智能 BI
+              十二智能BI
             </a>
           }
           submitter={{
@@ -110,7 +110,7 @@ const Login: React.FC = () => {
                   size: 'large',
                   prefix: <UserOutlined />,
                 }}
-                placeholder={'请输入账户名（shier）'}
+                placeholder={'请输入账户名'}
                 rules={[
                   {
                     required: true,
@@ -124,7 +124,7 @@ const Login: React.FC = () => {
                   size: 'large',
                   prefix: <LockOutlined />,
                 }}
-                placeholder={'请输入密码（123456789）'}
+                placeholder={'请输入密码'}
                 rules={[
                   {
                     required: true,
@@ -135,11 +135,12 @@ const Login: React.FC = () => {
             </>
           )}
 
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: 'center',marginBottom:'20px'}}>
             <Link to="/user/register">
               <Button
                 type="primary"
-                style={{ marginBottom: 24, width: '320px', height: '45px', fontSize: '16px' }}
+                block
+                style={{height:'40px'}}
               >
                 新用户注册
               </Button>

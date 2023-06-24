@@ -1,5 +1,5 @@
 import { DEFAULT_AVATAR_URL, selectAvatarUrl, selectGender } from '@/constants';
-import { getLoginUserUsingGET, updateMyUserUsingPOST } from '@/services/ShierBI/UserController';
+import { getLoginUserUsingGET, updateMyInfoUsingPOST } from '@/services/ShierBI/UserController';
 import { ModalForm, ProForm, ProFormText } from '@ant-design/pro-components';
 import { ProFormSelect } from '@ant-design/pro-form';
 import { Button, Descriptions, Divider, Image, message } from 'antd';
@@ -118,7 +118,7 @@ const UserInfo: React.FC = () => {
         onFinish={async (values) => {
           await waitTime(1000);
           //点击发起请求
-          const isModify = await updateMyUserUsingPOST(values);
+          const isModify = await updateMyInfoUsingPOST(values);
           if (isModify) {
             message.success('修改成功！');
             // 刷新用户信息表单

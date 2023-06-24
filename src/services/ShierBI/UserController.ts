@@ -151,7 +151,7 @@ export async function updateUserUsingPOST(
 }
 
 /** 用户更新个人信息 POST /api/user/update/my */
-export async function updateMyUserUsingPOST(
+export async function updateMyInfoUsingPOST(
   body: API.UserUpdateMyRequest,
   options?: { [key: string]: any },
 ) {

@@ -8,14 +8,15 @@
       { component: './404' },
     ],
   },
-  { path: '/welcome', name: '欢迎来到十二BI', icon: 'icon-huanying1', component: './Welcome' },
-  { path: '/add_chart', name: 'BI智能图表(同步)', icon: 'icon-tubiao1', component: './AddChart' },
-  { path: '/add_chart_async', name: 'BI智能图表(异步)', icon: 'icon-tubiao1', component: './AsyncAddChart' },
-  { path: '/my_chart', name: '图表管理', icon: 'icon-bingtutubiao', component: './MyChart' },
+  { path: '/welcome', name: '首页', icon: 'icon-huanying1', component: './Welcome' },
+  { path: '/add_chart', name: 'BI智能分析(同步)', icon: 'icon-tubiao1', component: './AddChart' },
+  { path: '/add_chart_async', name: 'BI智能分析(异步)', icon: 'icon-tubiao1', component: './AsyncAddChart' },
+  { path: '/my_chart', name: '我的图表', icon: 'icon-bingtutubiao', component: './ChartManage' },
+  { icon: 'icon-yonghu', name: '我的信息', path: '/userinfo', component: './UserInfo/' },
   {
     path: '/admin',
     icon: 'icon-guanliyuan',
-    name: '管理员特权',
+    name: '系统管理',
     access: 'canAdmin',
     routes: [
       { path: '/admin', redirect: '/admin/sub-page' },
@@ -25,7 +26,6 @@
       { path: '/admin/chart_manage', name: '管理图表', component: './Admin/ChartManage' },
     ],
   },
-  { icon: 'icon-yonghu', name: '我的信息', path: '/userinfo', component: './UserInfo/' },
   { path: '/', redirect: '/welcome' },
   { path: '*', layout: false, component: './404' },
 ];

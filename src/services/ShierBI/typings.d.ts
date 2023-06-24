@@ -137,6 +137,12 @@ declare namespace API {
     id?: number;
   };
 
+  type genChartByAiAsyncMqUsingPOSTParams = {
+    chartName?: string;
+    chartType?: string;
+    goal?: string;
+  };
+
   type genChartByAiAsyncUsingPOSTParams = {
     chartName?: string;
     chartType?: string;
@@ -166,13 +172,18 @@ declare namespace API {
 
   type LoginUserVO = {
     createTime?: string;
+    email?: string;
+    gender?: string;
     id?: number;
+    phone?: string;
     updateTime?: string;
     userAccount?: string;
     userAvatar?: string;
+    userCode?: string;
     userName?: string;
     userPassword?: string;
     userRole?: string;
+    userStatus?: number;
   };
 
   type OrderItem = {
@@ -241,12 +252,16 @@ declare namespace API {
   };
 
   type UserAddRequest = {
+    email?: string;
+    gender?: string;
+    phone?: string;
     userAccount?: string;
     userAvatar?: string;
     userCode?: string;
     userName?: string;
     userPassword?: string;
     userRole?: string;
+    userStatus?: number;
   };
 
   type UserLoginRequest = {
@@ -306,10 +321,15 @@ declare namespace API {
 
   type UserVO = {
     createTime?: string;
+    email?: string;
+    gender?: string;
     id?: number;
+    phone?: string;
     userAccount?: string;
     userAvatar?: string;
+    userCode?: string;
     userName?: string;
     userRole?: string;
+    userStatus?: number;
   };
 }
