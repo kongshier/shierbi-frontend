@@ -4,6 +4,7 @@
 
 ![image](https://github.com/kongshier/shierbi-frontend/assets/94662685/63afe3d5-ee6b-4420-8fb1-641dd16ebeea)
 
+![image](https://github.com/kongshier/shierbi-frontend/assets/94662685/67959893-4dce-4ea8-bcb1-8482b8e0c094)
 
 
 ![image](https://github.com/kongshier/shierbi-frontend/assets/94662685/3c3aa05e-813a-4b02-9399-86ef49469e86)
