@@ -4,6 +4,69 @@ declare namespace API {
     name?: string;
   };
 
+  type AiAssistant = {
+    createTime?: string;
+    execMessage?: string;
+    id?: number;
+    isDelete?: number;
+    questionGoal?: string;
+    questionName?: string;
+    questionResult?: string;
+    questionStatus?: string;
+    questionType?: string;
+    updateTime?: string;
+    userId?: number;
+  };
+
+  type AiAssistantAddRequest = {
+    questionGoal?: string;
+    questionName?: string;
+    questionResult?: string;
+    questionType?: string;
+  };
+
+  type AiAssistantEditRequest = {
+    execMessage?: string;
+    id?: number;
+    questionGoal?: string;
+    questionName?: string;
+    questionResult?: string;
+    questionStatus?: string;
+    questionType?: string;
+  };
+
+  type AiAssistantQueryRequest = {
+    current?: number;
+    execMessage?: string;
+    id?: number;
+    pageSize?: number;
+    questionGoal?: string;
+    questionName?: string;
+    questionResult?: string;
+    questionStatus?: string;
+    questionType?: string;
+    sortField?: string;
+    sortOrder?: string;
+    userId?: number;
+  };
+
+  type AiAssistantUpdateRequest = {
+    execMessage?: string;
+    id?: number;
+    questionGoal?: string;
+    questionName?: string;
+    questionResult?: string;
+    questionStatus?: string;
+    questionType?: string;
+    userId?: number;
+  };
+
+  type BaseResponseAiAssistant_ = {
+    code?: number;
+    data?: AiAssistant;
+    message?: string;
+  };
+
   type BaseResponseBiResponse_ = {
     code?: number;
     data?: BiResponse;
@@ -31,6 +94,18 @@ declare namespace API {
   type BaseResponseLong_ = {
     code?: number;
     data?: number;
+    message?: string;
+  };
+
+  type BaseResponseObject_ = {
+    code?: number;
+    data?: Record<string, any>;
+    message?: string;
+  };
+
+  type BaseResponsePageAiAssistant_ = {
+    code?: number;
+    data?: PageAiAssistant_;
     message?: string;
   };
 
@@ -155,6 +230,17 @@ declare namespace API {
     goal?: string;
   };
 
+  type GenChatByAiRequest = {
+    questionGoal?: string;
+    questionName?: string;
+    questionType?: string;
+  };
+
+  type getAiAssistantByIdUsingGETParams = {
+    /** id */
+    id?: number;
+  };
+
   type getChartByIdUsingGETParams = {
     /** id */
     id?: number;
@@ -189,6 +275,19 @@ declare namespace API {
   type OrderItem = {
     asc?: boolean;
     column?: string;
+  };
+
+  type PageAiAssistant_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: AiAssistant[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
   };
 
   type PageChart_ = {
@@ -282,6 +381,13 @@ declare namespace API {
     userName?: string;
     userRole?: string;
     userStatus?: number;
+  };
+
+  type userRegisterFileUsingPOSTParams = {
+    checkPassword?: string;
+    userAccount?: string;
+    userCode?: string;
+    userPassword?: string;
   };
 
   type UserRegisterRequest = {

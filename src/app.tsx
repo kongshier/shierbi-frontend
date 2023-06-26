@@ -46,7 +46,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
   return {
     title: '十二智能 BI',
     logo: 'http://picgo.kongshier.top/typoraImages/index_logo.png',
-    iconfontUrl:'//at.alicdn.com/t/c/font_4064432_3vhahxl55x3.js',
+    iconfontUrl:'//at.alicdn.com/t/c/font_4064432_xuylgaeimg.js',
 
     // 显示头像
     avatarProps: {
@@ -101,8 +101,8 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
  */
 export const request = {
   // 请求后端地址
-  // baseURL: 'http://localhost:8103',
-  baseURL:'http://bi.kongshier.top',
+  baseURL: 'http://localhost:8103',
+  // baseURL:'http://bi.kongshier.top',
   // 获取cookie
   withCredentials: true,
   ...errorConfig,

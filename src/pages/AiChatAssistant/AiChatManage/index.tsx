@@ -1,101 +1,85 @@
-import {
-  deleteChartUsingPOST,
-  listMyChartByPageUsingPOST,
-} from '@/services/ShierBI/ChartController';
-import { useModel } from '@@/exports';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Avatar, Button, Card, Col, Divider, List, message, Modal, Result, Row } from 'antd';
-import Search from 'antd/es/input/Search';
-import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useState } from 'react';
 
-const MyChartPage: React.FC = () => {
-  /**
-   * 初始值
-   */
-  const initSearchParams = {
+import {
+  deleteAiAssistantUsingPOST,
+  listMyAiAssistantByPageUsingPOST,
+} from '@/services/ShierBI/AiAssistantController';
+import { useModel } from '@@/exports';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+import Search from 'antd/es/input/Search';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
+import children = ReactMarkdown.propTypes.children;
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
+
+const ChatManage: React.FC = () => {
+  const [data, setData] = useState<API.AiAssistant[]>();
+  const [total, setTotal] = useState<number>(0);
+
+  const initParams = {
     current: 1,
-    pageSize: 4,
+    pageSize: 5,
     sortField: 'createTime',
-    sortOrder: 'desc',
+    sortOrder: 'DESC',
   };
 
   /**
    * 查询参数
    */
-  const [searchParams, setSearchParams] = useState<API.ChartQueryRequest>({
-    ...initSearchParams,
+  const [searchParams, setSearchParams] = useState<API.AiAssistantQueryRequest>({
+    ...initParams,
   });
-
-  /**
-   * 分页获取图表
-   */
-  const [chartList, setChartList] = useState<API.Chart[]>();
-  const [chartTotal, setChartTotal] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(true);
-
   /**
    * 获取当前用户
    */
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
 
-  /**
-   * 加载图表数据
-   */
-  const loadData = async () => {
-    setLoading(loading);
+  const initData = async () => {
     try {
-      let res = await listMyChartByPageUsingPOST(searchParams);
-      if (res.data) {
-        setChartList(res.data.records ?? []);
-        setChartTotal(res.data.total ?? 0);
-        // 隐藏title
-        if (res.data.records) {
-          res.data.records.forEach((data) => {
-            if (data.chartStatus == 'succeed') {
-              const chartOption = JSON.parse(data.genChart ?? '{}');
-              // 取出title并且设置为 undefined
-              chartOption.title = undefined;
-              data.genChart = JSON.stringify(chartOption);
-            }
-          });
-        }
+      const res = await listMyAiAssistantByPageUsingPOST(searchParams);
+      if (res.code === 0) {
+        console.log('获取内容:', res.data.records);
+        setData(res?.data?.records ?? []);
+        setTotal(res?.data?.total ?? 0);
       } else {
-        message.error('获取我的图表失败');
+        message.error('获取AI解答内容失败');
       }
     } catch (e: any) {
-      message.error('获取我的图表失败' + e.message);
+      message.error('获取AI解答内容失败' + e.message);
     }
-    setLoading(false);
   };
 
   /**
    * 变化时执行此处
    */
   useEffect(() => {
-    loadData();
+    initData();
   }, [searchParams]);
 
   /**
-   * 删除图表
+   * 删除对话
    * @param chartId
    */
   const handleDelete = (chartId: any) => {
     Modal.confirm({
       title: '确认删除',
       icon: <ExclamationCircleOutlined />,
-      content: '确定要删除这个图表吗？',
+      content: '确定要删除此对话吗？',
       okText: '确认',
       cancelText: '取消',
       onOk: async () => {
         try {
-          const res = await deleteChartUsingPOST({ id: chartId });
+          const res = await deleteAiAssistantUsingPOST({ id: chartId });
           console.log('res:', res.data);
           if (res.data) {
             message.success('删除成功');
             // 删除成功后重新加载图表数据
-            loadData();
+            initData();
           } else {
             message.error('删除失败');
           }
@@ -106,36 +90,25 @@ const MyChartPage: React.FC = () => {
     });
   };
 
-
   return (
     <div className="my-chart-page">
       <div className="margin-20">
         <Search
           placeholder="请输入搜索内容"
-          loading={loading}
           enterButton
           onSearch={(value) => {
             setSearchParams({
-              ...initSearchParams,
-              chartName: value,
+              ...initParams,
+              questionGoal: value,
             });
           }}
         />
       </div>
 
       <List
-        grid={{
-          gutter: 16,
-          xs: 1,
-          sm: 1,
-          md: 1,
-          lg: 2,
-          xl: 2,
-          xxl: 2,
-        }}
         pagination={{
           // 设置分页
-          showTotal: () => `共 ${chartTotal} 条记录`,
+          showTotal: () => `共 ${total} 条记录`,
           showSizeChanger: true,
           showQuickJumper: true,
           pageSizeOptions: ['6', '10', '14', '20'],
@@ -148,10 +121,9 @@ const MyChartPage: React.FC = () => {
           },
           current: searchParams.current,
           pageSize: searchParams.pageSize,
-          total: chartTotal,
+          total: total,
         }}
-        loading={loading}
-        dataSource={chartList}
+        dataSource={data}
         renderItem={(item) => (
           <List.Item key={item.id}>
             <Card style={{ width: '100%' }}>
@@ -160,7 +132,7 @@ const MyChartPage: React.FC = () => {
                 title={currentUser?.userName}
               />
               <>
-                {item.chartStatus == 'wait' && (
+                {item.questionStatus == 'wait' && (
                   <>
                     <Result
                       status="warning"
@@ -169,12 +141,12 @@ const MyChartPage: React.FC = () => {
                     />
                   </>
                 )}
-                {item.chartStatus == 'running' && (
+                {item.questionStatus == 'running' && (
                   <>
                     <Result status="info" title="图表生成中...." subTitle={item.execMessage} />
                   </>
                 )}
-                {item.chartStatus == 'succeed' && (
+                {item.questionStatus == 'succeed' && (
                   <>
                     <p
                       style={{
@@ -184,34 +156,35 @@ const MyChartPage: React.FC = () => {
                         fontSize: '16px',
                       }}
                     >
-                      {'图表标题：' + item.goal}
+                      {'原问题：' + item.questionGoal}
                     </p>
 
                     <List.Item.Meta
-                      style={{ textAlign: 'left', fontWeight: 'bold' }}
-                      description={item.chartType ? '图表类型：' + item.chartType : undefined}
+                      style={{ textAlign: 'left', fontWeight: 'bold', whiteSpace: 'pre' }}
+                      description={
+                        item.questionType
+                          ? '问题类型：' + item.questionType + '\t\t 问题名称：' + item.questionName
+                          : ' '
+                      }
                     />
-                    <ReactECharts option={item.genChart && JSON.parse(item.genChart)} />
-                    <p
-                      style={{
-                        textAlign: 'center',
-                        fontWeight: 'bold',
-                        color: '#e617ff',
-                        fontSize: '16px',
-                      }}
-                    >
-                      {'图表名称：' + item.chartName}
-                    </p>
-                    <Divider style={{ fontWeight: 'bold', color: 'blue', fontSize: '16px' }}>
-                      智能分析结果
-                    </Divider>
-                    <p style={{ fontWeight: 'bold', color: '#0b93a1' }}>{item.genResult}</p>
 
-                    <Row>
-                      <Col style={{color:'black',fontWeight:'bold'}}>
+                    <Divider style={{ fontWeight: 'bold', color: 'blue', fontSize: '16px' }}>
+                      AI解答
+                    </Divider>
+                    <div style={{ whiteSpace: 'nowrap', overflow: 'auto' }}>
+                      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} >
+                        {item.questionResult}
+                      </ReactMarkdown>
+                    </div>
+
+                    <Divider />
+                    <Row justify={'start'}>
+                      <Col style={{ color: 'black', fontWeight: 'bold' }}>
                         {'图表生成时间：' + new Date(item.createTime).toLocaleString()}
                       </Col>
-                      <Col push={14} >
+                    </Row>
+                    <Row justify={'end'}>
+                      <Col>
                         <Button danger onClick={() => handleDelete(item.id)}>
                           删除
                         </Button>
@@ -219,7 +192,7 @@ const MyChartPage: React.FC = () => {
                     </Row>
                   </>
                 )}
-                {item.chartStatus == 'failed' && (
+                {item.questionStatus == 'failed' && (
                   <>
                     <Result status="error" title="图表生成失败" subTitle={item.execMessage} />
                     <Row justify="end">
@@ -244,4 +217,4 @@ const MyChartPage: React.FC = () => {
     </div>
   );
 };
-export default MyChartPage;
+export default ChatManage;

@@ -1,18 +1,22 @@
 import Footer from '@/components/Footer';
-import { SYSTEM_LOGO, WELCOME } from '@/constants';
-import { getLoginUserUsingGET, userRegisterUsingPOST } from '@/services/ShierBI/UserController';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { LoginForm, ProFormText } from '@ant-design/pro-components';
+import { SYSTEM_LOGO,WELCOME } from '@/constants';
+import { uploadOssFileUsingPOST } from "@/services/ShierBI/aliyunwenjianguanli";
+import {
+getLoginUserUsingGET,userRegisterUsingPOST
+} from '@/services/ShierBI/UserController';
+import {LockOutlined, UploadOutlined, UserOutlined} from '@ant-design/icons';
+import { LoginForm,ProFormText } from '@ant-design/pro-components';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
-import { Helmet, history, useModel } from '@umijs/max';
-import { message, Tabs } from 'antd';
-import React, { useState } from 'react';
+import { Helmet,history,useModel } from '@umijs/max';
+import {Button, message, Tabs, Upload} from 'antd';
+import React,{ useState } from 'react';
 import { flushSync } from 'react-dom';
 import Settings from '../../../../config/defaultSettings';
 
 const Login: React.FC = () => {
   const [type, setType] = useState<string>('account');
   const { setInitialState } = useModel('@@initialState');
+
   const containerClassName = useEmotionCss(() => {
     return {
       display: 'flex',
@@ -35,10 +39,20 @@ const Login: React.FC = () => {
       });
     }
   };
-  const handleSubmit = async (values: API.UserLoginRequest) => {
+
+  const handleSubmit = async (values: API.User) => {
     try {
+      // 上传头像文件
+      // const file = values.userAvatar?.[0] ;
+      // const fileUploadResponse = await uploadOssFileUsingPOST({}, file);
+      // console.log("头像信息：",fileUploadResponse.data)
       // 注册
       const res = await userRegisterUsingPOST(values);
+      // 注册
+      // const res = await userRegisterUsingPOST({
+      //   ...values,
+      //   // userAvatar: fileUploadResponse.data.url,  // 将头像文件的 URL 作为用户注册的一部分
+      // });
 
       if (res.code === 0) {
         const defaultLoginSuccessMessage = '注册成功！';
@@ -102,6 +116,19 @@ const Login: React.FC = () => {
 
           {type === 'account' && (
             <>
+              <Upload
+                name="avatar"
+                action="/api/oss/upload" // 上传接口的 URL
+                onChange={(info) => {
+                  if (info.file.status === 'done') {
+                    message.success(`${info.file.name} 文件上传成功`);
+                  } else if (info.file.status === 'error') {
+                    message.error(`${info.file.name} 文件上传失败`);
+                  }
+                }}
+              >
+                <Button icon={<UploadOutlined />}>选择文件</Button>
+              </Upload>
               <ProFormText
                 name="userAccount"
                 fieldProps={{
