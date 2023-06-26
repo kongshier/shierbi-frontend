@@ -7,6 +7,7 @@ import { Avatar, Button, Card, Col, Divider, List, message, Modal, Row } from 'a
 import Search from 'antd/es/input/Search';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useState } from 'react';
+import ReactMarkdown from "react-markdown";
 
 const AminChartPage: React.FC = () => {
   /**
@@ -15,6 +16,8 @@ const AminChartPage: React.FC = () => {
   const initSearchParams = {
     current: 1,
     pageSize: 6,
+    sortField: 'createTime',
+    sortOrder: 'desc',
   };
 
   const [searchParams, setSearchParams] = useState<API.ChartQueryRequest>({
@@ -181,9 +184,16 @@ const AminChartPage: React.FC = () => {
               <Divider style={{ fontWeight: 'bold', color: 'blue', fontSize: '16px' }}>
                 智能分析结果
               </Divider>
-              <p style={{ fontWeight: 'bold', color: '#0b93a1' }}>{item.genResult}</p>
-              <Row justify="end">
-                <Col>
+              <div style={{ whiteSpace: 'normal', overflow: 'auto' }}>
+                <p style={{ fontWeight: 'bold', color: '#0b93a1' }}>
+                  <ReactMarkdown>{item.genResult}</ReactMarkdown>
+                </p>
+              </div>
+              <Row>
+                <Col style={{color:'black',fontWeight:'bold'}}>
+                  {'图表生成时间：' + new Date(item.createTime).toLocaleString()}
+                </Col>
+                <Col push={14} >
                   <Button danger onClick={() => handleDelete(item.id)}>
                     删除
                   </Button>

@@ -11,9 +11,6 @@ import Search from 'antd/es/input/Search';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
-import children = ReactMarkdown.propTypes.children;
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 
 const ChatManage: React.FC = () => {
@@ -43,7 +40,7 @@ const ChatManage: React.FC = () => {
     try {
       const res = await listMyAiAssistantByPageUsingPOST(searchParams);
       if (res.code === 0) {
-        console.log('获取内容:', res.data.records);
+        console.log('获取内容:', res.data?.records);
         setData(res?.data?.records ?? []);
         setTotal(res?.data?.total ?? 0);
       } else {

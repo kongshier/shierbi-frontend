@@ -8,6 +8,7 @@ import { Avatar, Button, Card, Col, Divider, List, message, Modal, Result, Row }
 import Search from 'antd/es/input/Search';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useState } from 'react';
+import ReactMarkdown from "react-markdown";
 
 const MyChartPage: React.FC = () => {
   /**
@@ -205,8 +206,11 @@ const MyChartPage: React.FC = () => {
                     <Divider style={{ fontWeight: 'bold', color: 'blue', fontSize: '16px' }}>
                       智能分析结果
                     </Divider>
-                    <p style={{ fontWeight: 'bold', color: '#0b93a1' }}>{item.genResult}</p>
-
+                    <div style={{ whiteSpace: 'normal', overflow: 'auto' }}>
+                      <p style={{ fontWeight: 'bold', color: '#0b93a1' }}>
+                        <ReactMarkdown>{item.genResult}</ReactMarkdown>
+                      </p>
+                    </div>
                     <Row>
                       <Col style={{color:'black',fontWeight:'bold'}}>
                         {'图表生成时间：' + new Date(item.createTime).toLocaleString()}
