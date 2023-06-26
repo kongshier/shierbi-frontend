@@ -21,3 +21,5 @@
 ![image](https://github.com/kongshier/shierbi-frontend/assets/94662685/e3aad1e7-ed4e-4506-aa69-e8b3f1d82046)
 
 ![image](https://github.com/kongshier/shierbi-frontend/assets/94662685/8455b515-7f36-46cc-b512-707ad62d5f9a)
+
+![image](https://github.com/kongshier/shierbi-frontend/assets/94662685/e1701991-05f5-4f37-85b8-54fcd0b55e3c)
