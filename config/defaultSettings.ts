@@ -17,6 +17,7 @@ const Settings: ProLayoutProps & {
   colorWeak: false,
   pwa: false,
   iconfontUrl:'',
+
 };
 
 export default Settings;

@@ -15,10 +15,7 @@ import {aiAssistantUsingPOST} from "@/services/ShierBI/AiAssistantController";
 
 const AddChat: React.FC = () => {
   const [form] = useForm();
-  const [result, setResult] = useState<any>();
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const [options, setOptions] = useState<{ label: any; value: any }[]>([]);
-  const formRef = React.useRef<FormInstance>(null);
 
   /**
    * 提交表单
@@ -39,7 +36,7 @@ const AddChat: React.FC = () => {
         message.error('操作失败' );
       } else {
         message.success('对话添加成功，请稍后到 AI解答 界面查看结果');
-        formRef.current?.resetFields();
+        form.resetFields();
       }
     } catch (e: any) {
       message.error('对话失败,' + e.message);
@@ -78,7 +75,12 @@ const AddChat: React.FC = () => {
           <Form.Item
             name="questionType"
             label="问题类型"
-            rules={[{required: true, message: '请选择输入问题类型！'}]}
+            rules={[{required: true, message: '请选择输入问题类型！'},
+              {
+                min:2,
+                required:true,
+                message:'问题类型不能为空！'
+              }]}
           >
             <TextArea placeholder="请输入你的问题类型，比如：Java/Python/GO"/>
           </Form.Item>

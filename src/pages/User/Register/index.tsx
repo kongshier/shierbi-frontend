@@ -1,6 +1,6 @@
 import Footer from '@/components/Footer';
 import { SYSTEM_LOGO,WELCOME } from '@/constants';
-import { uploadOssFileUsingPOST } from "@/services/ShierBI/aliyunwenjianguanli";
+
 import {
 getLoginUserUsingGET,userRegisterUsingPOST
 } from '@/services/ShierBI/UserController';
@@ -42,17 +42,8 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (values: API.User) => {
     try {
-      // 上传头像文件
-      // const file = values.userAvatar?.[0] ;
-      // const fileUploadResponse = await uploadOssFileUsingPOST({}, file);
-      // console.log("头像信息：",fileUploadResponse.data)
-      // 注册
+
       const res = await userRegisterUsingPOST(values);
-      // 注册
-      // const res = await userRegisterUsingPOST({
-      //   ...values,
-      //   // userAvatar: fileUploadResponse.data.url,  // 将头像文件的 URL 作为用户注册的一部分
-      // });
 
       if (res.code === 0) {
         const defaultLoginSuccessMessage = '注册成功！';
@@ -116,19 +107,6 @@ const Login: React.FC = () => {
 
           {type === 'account' && (
             <>
-              <Upload
-                name="avatar"
-                action="/api/oss/upload" // 上传接口的 URL
-                onChange={(info) => {
-                  if (info.file.status === 'done') {
-                    message.success(`${info.file.name} 文件上传成功`);
-                  } else if (info.file.status === 'error') {
-                    message.error(`${info.file.name} 文件上传失败`);
-                  }
-                }}
-              >
-                <Button icon={<UploadOutlined />}>选择文件</Button>
-              </Upload>
               <ProFormText
                 name="userAccount"
                 fieldProps={{

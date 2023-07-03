@@ -11,6 +11,7 @@ import TextArea from 'antd/es/input/TextArea';
 import {ProForm} from "@ant-design/pro-form";
 import useForm = ProForm.useForm;
 import {history} from "@@/core/history";
+import {CHART_TYPE_SELECT} from "@/constants";
 
 const AsyncAddChart: React.FC = () => {
   const [form] = useForm();
@@ -81,18 +82,7 @@ const AsyncAddChart: React.FC = () => {
             rules={[{required: true, message: '请选择图表类型！'}]}
           >
             <Select
-              options={[
-                {value: '折线图', label: '折线图'},
-                {value: '柱状图', label: '柱状图'},
-                {value: '雷达图', label: '雷达图'},
-                {value: '条形图', label: '条形图'},
-                {value: '散点图', label: '散点图'},
-                {value: '饼图', label: '饼图'},
-                {value: '树图', label: '树图'},
-                {value: '热力图', label: '热力图'},
-                {value: '漏斗图', label: '漏斗图'},
-                {value: '区域图', label: '区域图'},
-              ]}
+              options={CHART_TYPE_SELECT}
             ></Select>
           </Form.Item>
 

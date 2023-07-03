@@ -107,22 +107,14 @@ const Welcome: React.FC = () => {
             <div>
               <Image
                 src={
-                  'https://gitee.com/kcsen/img/raw/master/picGo/44.jpg'
-                }
-              />
-            </div>
-
-            <div>
-              <Image
-                src={
-                  'https://gitee.com/kcsen/img/raw/master/picGo/57.jpeg'
-                }
-              />
-            </div>
-            <div>
-              <Image
-                src={
                   'https://shierimages.oss-cn-shenzhen.aliyuncs.com/TyporaImages/yys.jpg'
+                }
+              />
+            </div>
+            <div>
+              <Image
+                src={
+                  'https://shierimages.oss-cn-shenzhen.aliyuncs.com/TyporaImages/54.jpeg'
                 }
               />
             </div>

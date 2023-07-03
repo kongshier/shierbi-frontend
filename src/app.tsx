@@ -5,6 +5,7 @@ import { AvatarDropdown, AvatarName } from './components/RightContent/AvatarDrop
 import { errorConfig } from './requestConfig';
 import {getLoginUserUsingGET} from "@/services/ShierBI/UserController";
 import { createFromIconfontCN } from '@ant-design/icons';
+import {SYSTEM_LOGO} from "@/constants";
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -45,8 +46,8 @@ const MyIcon = createFromIconfontCN({
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
     title: '十二智能 BI',
-    logo: 'http://picgo.kongshier.top/typoraImages/index_logo.png',
-    iconfontUrl:'//at.alicdn.com/t/c/font_4064432_xuylgaeimg.js',
+    logo: SYSTEM_LOGO,
+    iconfontUrl:'//at.alicdn.com/t/c/font_4064432_y5wwdt2q2be.js',
 
     // 显示头像
     avatarProps: {

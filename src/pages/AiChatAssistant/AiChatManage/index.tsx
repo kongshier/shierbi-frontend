@@ -136,11 +136,25 @@ const ChatManage: React.FC = () => {
                       title="排队中...."
                       subTitle={item.execMessage ?? '系统繁忙，请稍后重试'}
                     />
+                    <Row justify={'end'}>
+                      <Col>
+                        <Button danger onClick={() => handleDelete(item.id)}>
+                          删除
+                        </Button>
+                      </Col>
+                    </Row>
                   </>
                 )}
                 {item.questionStatus == 'running' && (
                   <>
                     <Result status="info" title="图表生成中...." subTitle={item.execMessage} />
+                    <Row justify={'end'}>
+                      <Col>
+                        <Button danger onClick={() => handleDelete(item.id)}>
+                          删除
+                        </Button>
+                      </Col>
+                    </Row>
                   </>
                 )}
                 {item.questionStatus == 'succeed' && (

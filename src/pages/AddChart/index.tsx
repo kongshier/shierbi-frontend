@@ -6,6 +6,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import ReactECharts from 'echarts-for-react';
 import {Link} from "@@/exports";
+import {CHART_TYPE_SELECT} from "@/constants";
 
 const AddChart: React.FC = () => {
   const [chart, setChart] = useState<API.BiResponse>();
@@ -86,18 +87,7 @@ const AddChart: React.FC = () => {
                 rules={[{ required: true, message: '请选择图表类型！' }]}
               >
                 <Select
-                  options={[
-                    { value: '折线图', label: '折线图' },
-                    { value: '柱状图', label: '柱状图' },
-                    { value: '雷达图', label: '雷达图' },
-                    { value: '条形图', label: '条形图' },
-                    { value: '散点图', label: '散点图' },
-                    { value: '饼图', label: '饼图' },
-                    { value: '树图', label: '树图' },
-                    { value: '热力图', label: '热力图' },
-                    { value: '漏斗图', label: '漏斗图' },
-                    { value: '区域图', label: '区域图' },
-                  ]}
+                  options={CHART_TYPE_SELECT}
                 ></Select>
               </Form.Item>
 

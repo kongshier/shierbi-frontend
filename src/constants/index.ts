@@ -7,7 +7,8 @@
 /**
  * 项目logo
  */
-export const SYSTEM_LOGO = 'http://picgo.kongshier.top/typoraImages/systemlogo.png';
+export const SYSTEM_LOGO =
+  'https://shierimages.oss-cn-shenzhen.aliyuncs.com/TyporaImages/biLogo.png';
 
 /**
  * shier介绍
@@ -16,10 +17,36 @@ export const WELCOME = 'https://blog.csdn.net/qq_56098191';
 
 export const CSDN_LINK = 'https://blog.csdn.net/qq_56098191';
 
+export const CHART_TYPE_SELECT = [
+  { value: '折线图', label: '折线图' },
+  { value: '柱状图', label: '柱状图' },
+  { value: '雷达图', label: '雷达图' },
+  { value: '条形图', label: '条形图' },
+  { value: '散点图', label: '散点图' },
+  { value: '正负条形图', label: '正负条形图' },
+  { value: '柱状图框选', label: '柱状图框选' },
+  { value: '动态排序柱状图', label: '动态排序柱状图' },
+  {
+    value: 'divider',
+    label: '-----------------------多列数据建议选择如下的图表类型-----------------------',
+    disabled: true,
+  },
+  { value: '饼图', label: '饼图' },
+  { value: '树图', label: '树图' },
+  { value: '热力图', label: '热力图' },
+  { value: '漏斗图', label: '漏斗图' },
+  { value: '区域图', label: '区域图' },
+  { value: '堆叠条形图', label: '堆叠条形图' },
+  { value: '玫瑰图', label: '玫瑰图' },
+  { value: '嵌套环形图', label: '嵌套环形图' },
+  { value: '滚动图例图表', label: '滚动图例图表' },
+];
+
 /**
  * 默认头像
  */
-export const DEFAULT_AVATAR_URL = 'https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/56d6f5ad1d8747f484d6c2666b5a7961~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?';
+export const DEFAULT_AVATAR_URL =
+  'https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/56d6f5ad1d8747f484d6c2666b5a7961~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?';
 
 export const selectGender = [
   { value: '男', label: '男' },
@@ -35,14 +62,17 @@ export const selectUserRole = [
   { value: 'ban', label: '封号' },
 ];
 export const selectAvatarUrl = [
-  { value: 'http://picgo.kongshier.top/typoraImages/48.jpeg', label: '美女' },
-  { value: 'http://picgo.kongshier.top/typoraImages/HeadPortrait.jpg', label: '猫咪' },
-  { value: 'http://picgo.kongshier.top/typoraImages/cats.jpg', label: '功夫猫咪' },
+  {
+    value:
+      'https://p3-passport.byteimg.com/img/user-avatar/2ea9106b748a0b88d5bfcf517a4dc2ef~180x180.awebp',
+    label: '默认头像',
+  },
   {
     value:
       'https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e8f11d5f659e4babad1be4aab185acb6~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?',
-    label: '小姐姐1号',
+    label: '动漫美女',
   },
+  { value: 'https://img-blog.csdnimg.cn/3a7f9cd5c6604307be5a78017cb52e34.jpeg', label: '小美女' },
   {
     value:
       'https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/33d8f1d47ed24eb4b5f6e80f0300f20b~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?',
