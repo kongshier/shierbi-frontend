@@ -1,11 +1,11 @@
+import { SYSTEM_LOGO } from '@/constants';
+import { getLoginUserUsingGET } from '@/services/ShierBI/UserController';
+import { createFromIconfontCN } from '@ant-design/icons';
 import { SettingDrawer } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history, Link } from '@umijs/max';
 import { AvatarDropdown, AvatarName } from './components/RightContent/AvatarDropdown';
 import { errorConfig } from './requestConfig';
-import {getLoginUserUsingGET} from "@/services/ShierBI/UserController";
-import { createFromIconfontCN } from '@ant-design/icons';
-import {SYSTEM_LOGO} from "@/constants";
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -19,8 +19,7 @@ export async function getInitialState(): Promise<{
   const fetchUserInfo = async () => {
     try {
       // 获取登录用户信息
-      const msg = await getLoginUserUsingGET(
-     );
+      const msg = await getLoginUserUsingGET();
       return msg.data;
     } catch (error) {
       history.push(loginPath);
@@ -35,7 +34,7 @@ export async function getInitialState(): Promise<{
       currentUser,
     };
   }
-  return {}
+  return {};
 }
 
 const MyIcon = createFromIconfontCN({
@@ -47,7 +46,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
   return {
     title: '十二智能 BI',
     logo: SYSTEM_LOGO,
-    iconfontUrl:'//at.alicdn.com/t/c/font_4064432_y5wwdt2q2be.js',
+    iconfontUrl: '//at.alicdn.com/t/c/font_4064432_y5wwdt2q2be.js',
 
     // 显示头像
     avatarProps: {
@@ -65,7 +64,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     links: isDev
       ? [
           <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-            <MyIcon type={"icon-wendangguanli"}/>
+            <MyIcon type={'icon-wendangguanli'} />
             <span>OpenAPI 接口文档</span>
           </Link>,
         ]

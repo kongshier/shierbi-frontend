@@ -6,7 +6,10 @@ import React from 'react';
 
 const { Title, Paragraph } = Typography;
 
-
+/**
+ * 
+ * @constructor
+ */
 const Admin: React.FC = () => {
   return (
     <PageContainer content={' 管理员首页介绍 '}>

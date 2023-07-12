@@ -21,7 +21,9 @@
       { path: '/ai_question/history', name: 'AI 解答', icon: 'smile', component: './AiChatAssistant/AiChatManage' },
     ]
   },
-  { icon: 'icon-yonghu', name: '我的信息', path: '/userinfo', component: './UserInfo/' },
+  { icon: 'icon-yonghu', name: '个人中心', path: '/userinfo', component: './UserInfo/' },
+  { path: '/myOrder', icon: 'User', component: './MyOrder', name: '我的订单' },
+  { path: '/myInformation', icon: 'User', component: './MyInformation', name: '我的信息' },
   {
     path: '/admin',
     icon: 'icon-guanliyuan',

@@ -1,9 +1,17 @@
 import { DEFAULT_AVATAR_URL, selectAvatarUrl, selectGender } from '@/constants';
-import { getLoginUserUsingGET, updateMyInfoUsingPOST } from '@/services/ShierBI/UserController';
+import {
+  getLoginUserUsingGET,
+  getUserVOByIdUsingGET,
+  updateByProfileUserUsingPOST,
+  updateMyInfoUsingPOST
+} from '@/services/ShierBI/UserController';
 import { ModalForm, ProForm, ProFormText } from '@ant-design/pro-components';
 import { ProFormSelect } from '@ant-design/pro-form';
-import { Button, Descriptions, Divider, Image, message } from 'antd';
+import {Button, Col, Descriptions, Divider, Image, message, Row, Upload, UploadFile, UploadProps} from 'antd';
 import React, { useEffect, useState } from 'react';
+import {useModel} from "@@/exports";
+import {RcFile, UploadChangeParam} from "antd/es/upload";
+import {LoadingOutlined, PlusOutlined} from "@ant-design/icons";
 
 const waitTime = (time: number = 100) => {
   return new Promise((resolve) => {
@@ -11,6 +19,30 @@ const waitTime = (time: number = 100) => {
       resolve(true);
     }, time);
   });
+};
+
+const avatarStyle: React.CSSProperties = {
+  width: '100%',
+  textAlign: 'center',
+};
+const buttonStyle: React.CSSProperties = {
+  marginLeft: '30px',
+};
+
+/**
+ * 上传前校验
+ * @param file 文件
+ */
+const beforeUpload = (file: RcFile) => {
+  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
+  if (!isJpgOrPng) {
+    message.error('仅允许上传 JPG/PNG 格式的文件!');
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error('文件最大上传大小为 2MB!');
+  }
+  return isJpgOrPng && isLt2M;
 };
 
 const UserInfo: React.FC = () => {
@@ -43,20 +75,103 @@ const UserInfo: React.FC = () => {
     fetchData();
   }, []);
 
-  console.log('currentUser12312:', myUser);
+  const [data, setData] = useState<API.UserVO>({});
+  const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string>();
+  const { initialState, setInitialState } = useModel('@@initialState');
+
+  // 获取用户信息
+  const getUserInfo = async (id: any) => {
+    return getUserVOByIdUsingGET({ id }).then((res:any) => {
+      if (res.data) {
+        setInitialState((s: any) => ({ ...s, loginUser: res.data }));
+        setData(res.data);
+        setImageUrl(res.data.userAvatar);
+      }
+    });
+  };
+
+  useEffect(() => {
+    try {
+      getUserInfo(initialState?.currentUser?.id).then(r => {});
+      // console.log("用户信息",initialState?.currentUser.userAvatar)
+    } catch (e: any) {
+      console.log(e);
+    }
+  }, []);
+
+  // 更新用户头像
+  const updateUserAvatar = async (id:any,userAvatar:any) => {
+    // 更新用户头像
+    console.log(id ,userAvatar)
+    const res = await updateByProfileUserUsingPOST({
+      id:id,
+      userAvatar:userAvatar
+    });
+    console.log('头像状态' + res.code);
+    if (res.code !== 0) {
+      message.error(`更新用户头像失败`);
+    } else {
+      getUserInfo(id);
+    }
+  };
+
+  /**
+   * 上传图片
+   * @param info
+   */
+  const handleChange: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {
+    if (info.file.status === 'uploading') {
+      setLoading(true);
+      return;
+    }
+    console.log('上传状态',info.file.status)
+    if (info.file.status === 'done') {
+      if (info.file.response.code === 0) {
+        message.success(`上传成功`);
+        const id = initialState?.currentUser?.id as number;
+        const userAvatar = info.file.response.data;
+        console.log("头像url",info.file)
+        setLoading(false);
+        setImageUrl(userAvatar);
+        updateUserAvatar(id, userAvatar);
+      }
+    }
+  };
+
+  const uploadButton = (
+    <div>
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
 
   return (
     <>
       <Divider style={{ fontWeight: 'bold', color: 'blue' }}>用户头像</Divider>
-      <Descriptions style={{ margin: '20px', marginLeft: '650px' }}>
-        <Descriptions.Item style={{ borderRadius: '50%' }}>
-          <Image
-            src={myUser.userAvatar === null ? DEFAULT_AVATAR_URL : myUser.userAvatar}
-            width={300}
-            height={300}
-            style={{borderRadius:'50%'}}
-          />
-        </Descriptions.Item>
+      <Descriptions style={{ margin: '50px' }}>
+        <Row>
+          <Col style={avatarStyle}>
+            <Upload
+              name="file"
+              listType="picture-circle"
+              showUploadList={false}
+              action="http://127.0.0.1:8103/api/oss/upload"
+              beforeUpload={beforeUpload}
+              onChange={handleChange}
+            >
+              {imageUrl ? (
+                <img
+                  src={data?.userAvatar}
+                  alt="userAvatar"
+                  style={{ width: '200%', borderRadius: '50%',height:"200%"}}
+                />
+              ) : (
+                uploadButton
+              )}
+            </Upload>
+          </Col>
+        </Row>
       </Descriptions>
       <Divider style={{ fontWeight: 'bold', color: 'blue' }}>用户信息</Divider>
       <Descriptions
@@ -104,7 +219,7 @@ const UserInfo: React.FC = () => {
           <Button
             type="primary"
             shape="round"
-            style={{ marginTop: '100px', width: '250px', marginLeft: '650px' }}
+            style={{ marginTop: '50px', width: '250px', marginLeft: '650px' }}
           >
             修改我的信息
           </Button>

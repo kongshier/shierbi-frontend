@@ -83,7 +83,7 @@ export async function genChartByAiUsingPOST(
   });
 }
 
-/** 异步图表文件上传 POST /api/chart/gen/async */
+/** 异步线程池图表文件上传 POST /api/chart/gen/async */
 export async function genChartByAiAsyncUsingPOST(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.genChartByAiAsyncUsingPOSTParams,

@@ -1,4 +1,9 @@
 declare namespace API {
+  type addOrderUsingPOSTParams = {
+    /** total */
+    total?: number;
+  };
+
   type addUsingGETParams = {
     /** name */
     name?: string;
@@ -61,9 +66,37 @@ declare namespace API {
     userId?: number;
   };
 
+  type AiFrequencyOrderVO = {
+    createTime?: string;
+    id?: number;
+    orderStatus?: number;
+    price?: number;
+    purchaseQuantity?: number;
+    totalAmount?: number;
+    updateTime?: string;
+    userId?: number;
+  };
+
+  type AiFrequencyRechargeUsingPOSTParams = {
+    frequency?: number;
+  };
+
+  type AiFrequencyVO = {
+    id?: number;
+    remainFrequency?: number;
+    totalFrequency?: number;
+    userId?: number;
+  };
+
   type BaseResponseAiAssistant_ = {
     code?: number;
     data?: AiAssistant;
+    message?: string;
+  };
+
+  type BaseResponseAiFrequencyVO_ = {
+    code?: number;
+    data?: AiFrequencyVO;
     message?: string;
   };
 
@@ -82,6 +115,12 @@ declare namespace API {
   type BaseResponseChart_ = {
     code?: number;
     data?: Chart;
+    message?: string;
+  };
+
+  type BaseResponseListAiFrequencyOrderVO_ = {
+    code?: number;
+    data?: AiFrequencyOrderVO[];
     message?: string;
   };
 
@@ -329,8 +368,19 @@ declare namespace API {
     total?: number;
   };
 
-  type uploadFileUsingPOSTParams = {
-    biz?: string;
+  type payCodeUsingPOSTParams = {
+    /** orderId */
+    orderId?: number;
+  };
+
+  type payUsingGETParams = {
+    /** payNo */
+    payNo?: string;
+  };
+
+  type tradeQueryUsingPOSTParams = {
+    /** payNo */
+    payNo?: string;
   };
 
   type User = {
@@ -383,13 +433,6 @@ declare namespace API {
     userStatus?: number;
   };
 
-  type userRegisterFileUsingPOSTParams = {
-    checkPassword?: string;
-    userAccount?: string;
-    userCode?: string;
-    userPassword?: string;
-  };
-
   type UserRegisterRequest = {
     checkPassword?: string;
     userAccount?: string;
@@ -413,9 +456,7 @@ declare namespace API {
     email?: string;
     gender?: string;
     id?: number;
-    isDelete?: number;
     phone?: string;
-    updateTime?: string;
     userAccount?: string;
     userAvatar?: string;
     userCode?: string;

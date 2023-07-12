@@ -135,42 +135,6 @@ export async function userRegisterUsingPOST(
   });
 }
 
-/** 用户注册和头像上传 POST /api/user/registerfile */
-export async function userRegisterFileUsingPOST(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.userRegisterFileUsingPOSTParams,
-  body: {},
-  file?: File,
-  options?: { [key: string]: any },
-) {
-  const formData = new FormData();
-
-  if (file) {
-    formData.append('file', file);
-  }
-
-  Object.keys(body).forEach((ele) => {
-    const item = (body as any)[ele];
-
-    if (item !== undefined && item !== null) {
-      formData.append(
-        ele,
-        typeof item === 'object' && !(item instanceof File) ? JSON.stringify(item) : item,
-      );
-    }
-  });
-
-  return request<API.BaseResponseLong_>('/api/user/registerfile', {
-    method: 'POST',
-    params: {
-      ...params,
-    },
-    data: formData,
-    requestType: 'form',
-    ...(options || {}),
-  });
-}
-
 /** 管理员更新用户信息 POST /api/user/update */
 export async function updateUserUsingPOST(
   body: API.UserUpdateRequest,
@@ -192,6 +156,21 @@ export async function updateMyInfoUsingPOST(
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponseBoolean_>('/api/user/update/my', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 更新用户信息 POST /api/user/update/user */
+export async function updateByProfileUserUsingPOST(
+  body: API.UserUpdateRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseBoolean_>('/api/user/update/user', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
