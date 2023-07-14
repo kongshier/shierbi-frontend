@@ -103,7 +103,7 @@ const ChatManage: React.FC = () => {
           showTotal: () => `共 ${total} 条记录`,
           showSizeChanger: true,
           showQuickJumper: true,
-          pageSizeOptions: ['6', '10', '14', '20'],
+          pageSizeOptions: ['10', '20', '30'],
           onChange: (page, pageSize) => {
             setSearchParams({
               ...searchParams,

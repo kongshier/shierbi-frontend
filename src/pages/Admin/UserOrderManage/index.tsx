@@ -64,6 +64,7 @@ const columns: ProColumns<API.AiFrequencyOrder>[] = [
       0: { text: <Tag color="warning">待支付</Tag>, status: 'Default' },
       1: { text: <Tag color="success">已支付</Tag>, status: 'Success' },
       2: { text: <Tag color="error">已取消</Tag>, status: 'Error' },
+      3: { text: <Tag color="red">订单已取消</Tag>, status: 'Error' },
     },
     align: 'center',
   },
@@ -201,7 +202,7 @@ export default () => {
           showTotal: () => `共 ${orderTotal} 条记录`,
           showSizeChanger: true,
           showQuickJumper: true,
-          pageSizeOptions: ['6', '10', '14', '20'],
+          pageSizeOptions: ['10', '20', '30'],
           onChange: (page, pageSize) => {
             setSearchParams({
               ...searchParams,

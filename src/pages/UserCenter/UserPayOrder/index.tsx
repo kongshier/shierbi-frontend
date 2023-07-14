@@ -44,7 +44,7 @@ const MyOrder: React.FC = () => {
     let color = 'default';
     let status = '';
     if (value === 0) {
-      color = 'warning';
+      color = 'blue';
       status = '待支付';
     }
     if (value === 1) {
@@ -53,7 +53,11 @@ const MyOrder: React.FC = () => {
     }
     if (value === 2) {
       color = 'error';
-      status = '无效订单';
+      status = '超时订单';
+    }
+    if (value === 3) {
+      color = 'gold';
+      status = '订单已取消';
     }
     return <Tag color={color}>{status}</Tag>;
   };
@@ -85,7 +89,7 @@ const MyOrder: React.FC = () => {
       render: renderStatus,
       key: 'orderStatus',
       align: 'center',
-      width:'250px',
+      width: '250px',
     },
     {
       title: '创建时间',
@@ -93,7 +97,7 @@ const MyOrder: React.FC = () => {
       key: 'createTime',
       render: (text) => moment(text).format('YYYY-MM-DD HH:mm:ss'),
       align: 'center',
-      width:'250px',
+      width: '250px',
     },
     {
       title: '操作',
@@ -102,8 +106,16 @@ const MyOrder: React.FC = () => {
       render: (value, record, index) => (
         <>
           {record.orderStatus === 1 ? (
-            <Button type="primary" disabled>
+            <Button type="primary" disabled style={{color:"green"}}>
               已支付
+            </Button>
+          )  : record.orderStatus === 2 ? (
+            <Button type="primary" disabled style={{color:'red'}}>
+              订单超时
+            </Button>
+          ) : record.orderStatus === 3 ? (
+            <Button type="primary"  disabled style={{color:'gold'}}>
+              订单已取消
             </Button>
           ) : (
             <Button type="primary" onClick={() => orderInfo(record.id)}>
@@ -113,7 +125,7 @@ const MyOrder: React.FC = () => {
         </>
       ),
       align: 'center',
-      width:'150px',
+      width: '150px',
     },
   ];
 
@@ -193,7 +205,9 @@ const MyOrder: React.FC = () => {
           />
         </div>
       </div>
-      <div style={{ textAlign: 'center' ,marginTop:"10px",color:"blue"}}>请根据对应的订单号付款</div>
+      <div style={{ textAlign: 'center', marginTop: '10px', color: 'blue' }}>
+        请根据对应的订单号付款
+      </div>
       <div className="my-order" style={{ margin: '50px' }}>
         <Table
           bordered
@@ -205,7 +219,7 @@ const MyOrder: React.FC = () => {
             showTotal: () => `共 ${orderTotal} 条记录`,
             showSizeChanger: true,
             showQuickJumper: true,
-            pageSizeOptions: ['6', '10', '14', '20'],
+            pageSizeOptions: ['10', '20', '30'],
             onChange: (page, pageSize) => {
               setSearchParams({
                 ...searchParams,

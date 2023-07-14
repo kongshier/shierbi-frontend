@@ -225,6 +225,7 @@ const UserInfo: React.FC = () => {
               listType="picture-circle"
               showUploadList={false}
               action="http://127.0.0.1:8103/api/oss/upload"
+              // action="http://bi.kongshier.top/api/oss/upload"
               beforeUpload={beforeUpload}
               onChange={handleChange}
             >

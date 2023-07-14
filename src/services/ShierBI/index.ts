@@ -6,6 +6,7 @@ import * as AiAssistantController from './AiAssistantController';
 import * as aiFrequencyController from './aiFrequencyController';
 import * as aiFrequencyOrderController from './aiFrequencyOrderController';
 import * as aliPayController from './aliPayController';
+import * as aliPayInfoController from './aliPayInfoController';
 import * as ChartController from './ChartController';
 import * as QueueController from './QueueController';
 import * as UserController from './UserController';
@@ -17,6 +18,7 @@ export default {
   ChartController,
   aiFrequencyOrderController,
   wenjianguanli,
+  aliPayInfoController,
   QueueController,
   UserController,
 };

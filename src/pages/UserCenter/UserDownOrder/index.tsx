@@ -64,7 +64,8 @@ const columns: ProColumns<API.AiFrequencyOrder>[] = [
     valueEnum: {
       0: { text: <Tag color="warning">待支付</Tag>, status: 'Default' },
       1: { text: <Tag color="success">已支付</Tag>, status: 'Success' },
-      2: { text: <Tag color="error">已取消</Tag>, status: 'Error' },
+      2: { text: <Tag color="error">超时订单</Tag>, status: 'Error' },
+      3: { text: <Tag color="red">订单已取消</Tag>, status: 'Error' },
     },
     align: 'center',
   },
@@ -95,9 +96,8 @@ const columns: ProColumns<API.AiFrequencyOrder>[] = [
             title="取消订单"
             description="你确定要取消此订单吗？"
             onConfirm={async (e) => {
-              console.log('id', record.id);
-              const id = record.id;
-              const isCancel = await cancelOrderUsingPOST({ id: id });
+              console.log('record', record);
+              const isCancel = await cancelOrderUsingPOST({ ...record });
               if (isCancel) {
                 message.success('取消成功');
                 // 刷新订单信息表单
@@ -107,8 +107,8 @@ const columns: ProColumns<API.AiFrequencyOrder>[] = [
               }
             }}
             onCancel={(e) => {}}
-            okText="Yes"
-            cancelText="No"
+            okText="是"
+            cancelText="否"
           >
             <Button size={"small"}>取消</Button>
           </Popconfirm>
@@ -233,7 +233,7 @@ export default () => {
           showTotal: () => `共 ${orderTotal} 条记录`,
           showSizeChanger: true,
           showQuickJumper: true,
-          pageSizeOptions: ['6', '10', '14', '20'],
+          pageSizeOptions: ['10', '20', '30'],
           onChange: (page, pageSize) => {
             setSearchParams({
               ...searchParams,

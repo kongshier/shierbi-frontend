@@ -321,7 +321,7 @@ export default () => {
         // console.log(userList.data);
         if (userList.code === 0) {
           setUserTotal(userList.data?.total ?? 0);
-        }else {
+        } else {
           message.error('获取用户列表失败');
         }
         // @ts-ignore
@@ -332,7 +332,7 @@ export default () => {
         showTotal: () => `共 ${userTotal} 条记录`,
         showSizeChanger: true,
         showQuickJumper: true,
-        pageSizeOptions: ['6', '10', '14', '20'],
+        pageSizeOptions: ['10', '20', '30'],
         onChange: (page, pageSize) => {
           setSearchParams({
             ...searchParams,
