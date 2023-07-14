@@ -7,8 +7,34 @@
 /**
  * 项目logo
  */
-export const SYSTEM_LOGO =
-  'https://shierimages.oss-cn-shenzhen.aliyuncs.com/TyporaImages/biLogo.png';
+import loginImage from '../../public/loginImage.jpg';
+import logo from '../../public/logo.png';
+import registerImage from '../../public/registerImage.jpg';
+
+export const IMAGES = [
+  import('../../public/catImage/image1.jpg'),
+  import('../../public/catImage/image2.jpg'),
+  import('../../public/catImage/image3.jpg'),
+  import('../../public/catImage/image4.jpg'),
+  import('../../public/catImage/image5.jpg'),
+  import('../../public/catImage/image6.jpg'),
+  import('../../public/catImage/1.jpg'),
+  import('../../public/catImage/2.jpg'),
+  import('../../public/catImage/3.jpg'),
+  import('../../public/catImage/4.jpg'),
+  import('../../public/catImage/5.jpg'),
+  import('../../public/catImage/6.jpg'),
+  import('../../public/catImage/7.jpg'),
+  import('../../public/catImage/8.jpg'),
+  import('../../public/catImage/9.jpg'),
+  import('../../public/catImage/10.jpg'),
+];
+
+export const SYSTEM_LOGO = logo;
+
+export const LOGIN_BACKGROUND_IMAGE = loginImage;
+
+export const REGISTER_BACKGROUND_IMAGE = registerImage;
 
 /**
  * shier介绍
@@ -25,7 +51,6 @@ export const CHART_TYPE_SELECT = [
   { value: '散点图', label: '散点图' },
   { value: '正负条形图', label: '正负条形图' },
   { value: '柱状图框选', label: '柱状图框选' },
-  { value: '动态排序柱状图', label: '动态排序柱状图' },
   {
     value: 'divider',
     label: '-----------------------多列数据建议选择如下的图表类型-----------------------',
@@ -38,8 +63,6 @@ export const CHART_TYPE_SELECT = [
   { value: '区域图', label: '区域图' },
   { value: '堆叠条形图', label: '堆叠条形图' },
   { value: '玫瑰图', label: '玫瑰图' },
-  { value: '嵌套环形图', label: '嵌套环形图' },
-  { value: '滚动图例图表', label: '滚动图例图表' },
 ];
 
 /**

@@ -4,9 +4,9 @@
 // API 唯一标识：
 import * as AiAssistantController from './AiAssistantController';
 import * as aiFrequencyController from './aiFrequencyController';
+import * as aiFrequencyOrderController from './aiFrequencyOrderController';
 import * as aliPayController from './aliPayController';
 import * as ChartController from './ChartController';
-import * as frequencyOrderController from './frequencyOrderController';
 import * as QueueController from './QueueController';
 import * as UserController from './UserController';
 import * as wenjianguanli from './wenjianguanli';
@@ -15,7 +15,7 @@ export default {
   aiFrequencyController,
   aliPayController,
   ChartController,
-  frequencyOrderController,
+  aiFrequencyOrderController,
   wenjianguanli,
   QueueController,
   UserController,

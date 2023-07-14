@@ -7,7 +7,7 @@ import React from 'react';
 const { Title, Paragraph } = Typography;
 
 /**
- * 
+ *
  * @constructor
  */
 const Admin: React.FC = () => {
@@ -32,21 +32,24 @@ const Admin: React.FC = () => {
             textAlign:"center"
           }}
         />
-        <Title level={1} style={{color:"#0015ff",textAlign:"center"}}>
+        <Title level={1} style={{color:"#0015ff",textAlign:"left"}}>
           管理员特权
         </Title>
-        <Paragraph style={{color:"#0015ff"}}>
+        <Title level={4}  style={{color:"rgb(0,42,255)"}}>
           1. 增删改查用户
-        </Paragraph>
-        <Paragraph style={{color:"#0015ff"}}>
+        </Title>
+        <Title level={4} style={{color:"rgba(0,21,255,0.9)"}}>
           2. 调用平台所有接口服务
-        </Paragraph>
-        <Paragraph style={{color:"#0015ff"}}>
+        </Title>
+        <Title level={4} style={{color:"rgba(0,34,255,0.87)"}}>
           3. 更好进行图表管理
-        </Paragraph>
-        <Paragraph style={{color:"#0015ff"}}>
+        </Title>
+        <Title level={4} style={{color:"#0015ff"}}>
           4. 可以查看所有用户生成的图表
-        </Paragraph>
+        </Title>
+        <Title level={4} style={{color:"#003cff"}}>
+          5. 管理用户的订单
+        </Title>
       </Card>
     </PageContainer>
   );

@@ -2,13 +2,13 @@ import {
   deleteChartUsingPOST,
   listMyChartByPageUsingPOST,
 } from '@/services/ShierBI/ChartController';
-import { useModel } from '@@/exports';
+import { Link, useModel } from '@@/exports';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Avatar, Button, Card, Col, Divider, List, message, Modal, Result, Row } from 'antd';
 import Search from 'antd/es/input/Search';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useState } from 'react';
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown from 'react-markdown';
 
 const MyChartPage: React.FC = () => {
   /**
@@ -107,7 +107,6 @@ const MyChartPage: React.FC = () => {
     });
   };
 
-
   return (
     <div className="my-chart-page">
       <div className="margin-20">
@@ -168,11 +167,26 @@ const MyChartPage: React.FC = () => {
                       title="排队中...."
                       subTitle={item.execMessage ?? '系统繁忙，请稍后重试'}
                     />
+                    <Row>
+                      <Col push={16}>
+                        <Link to={`/ViewChartData/${item.id}`}>
+                          <Button>查看图表数据</Button>
+                        </Link>
+                      </Col>
+                      <Col push={17}>
+                        <Button danger onClick={() => handleDelete(item.id)}>
+                          删除
+                        </Button>
+                      </Col>
+                    </Row>
                   </>
                 )}
                 {item.chartStatus == 'running' && (
                   <>
                     <Result status="info" title="图表生成中...." subTitle={item.execMessage} />
+                    <Link to={`/ViewChartData/${item.id}`}>
+                      <Button>查看图表数据</Button>
+                    </Link>
                   </>
                 )}
                 {item.chartStatus == 'succeed' && (
@@ -206,16 +220,21 @@ const MyChartPage: React.FC = () => {
                     <Divider style={{ fontWeight: 'bold', color: 'blue', fontSize: '16px' }}>
                       智能分析结果
                     </Divider>
-                    <div style={{ whiteSpace: 'normal', overflow: 'auto' }}>
-                      <p style={{ fontWeight: 'bold', color: '#0b93a1' }}>
-                        <ReactMarkdown>{item.genResult}</ReactMarkdown>
+                    <div style={{ whiteSpace: 'pre-wrap', overflow: 'auto' }}>
+                      <p style={{ fontWeight: 'bold', color: '#0b93a1' ,textAlign:"left"}}>
+                        {item.genResult}
                       </p>
                     </div>
                     <Row>
-                      <Col style={{color:'black',fontWeight:'bold'}}>
+                      <Col style={{ color: 'black', fontWeight: 'bold' }}>
                         {'图表生成时间：' + new Date(item.createTime).toLocaleString()}
                       </Col>
-                      <Col push={14} >
+                      <Col push={7}>
+                        <Link to={`/ViewChartData/${item.id}`}>
+                          <Button>查看图表数据</Button>
+                        </Link>
+                      </Col>
+                      <Col push={8}>
                         <Button danger onClick={() => handleDelete(item.id)}>
                           删除
                         </Button>
@@ -231,6 +250,11 @@ const MyChartPage: React.FC = () => {
                         <Button type="primary" onClick={() => message.warning('敬请期待')}>
                           重试
                         </Button>
+                      </Col>
+                      <Col>
+                        <Link to={`/ViewChartData/${item.id}`}>
+                          <Button>查看图表数据</Button>
+                        </Link>
                       </Col>
                       <Col>
                         <Button danger onClick={() => handleDelete(item.id)}>

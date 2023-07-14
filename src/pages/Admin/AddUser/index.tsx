@@ -79,10 +79,10 @@ const Login: React.FC = () => {
             maxWidth: '75vw',
           }}
           logo={<img alt="logo" src={SYSTEM_LOGO} />}
-          title="十二智能 BI"
+          title="猫咪智能 BI"
           subTitle={
             <a href={WELCOME} target="_blank">
-              十二智能 BI
+              猫咪智能 BI
             </a>
           }
           submitter={{

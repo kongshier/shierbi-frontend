@@ -9,7 +9,7 @@ const Settings: ProLayoutProps & {
 } = {
   navTheme: 'light',
   // 拂晓蓝
-  colorPrimary: '#1890ff',
+  colorPrimary: '#3e10d8',
   layout: 'mix',
   contentWidth: 'Fluid',
   fixedHeader: false,
@@ -17,7 +17,7 @@ const Settings: ProLayoutProps & {
   colorWeak: false,
   pwa: false,
   iconfontUrl:'',
-
+  logo:'https://shierimages.oss-cn-shenzhen.aliyuncs.com/TyporaImages/logo.png'
 };
 
 export default Settings;

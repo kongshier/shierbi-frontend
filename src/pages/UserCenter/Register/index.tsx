@@ -1,17 +1,17 @@
 import Footer from '@/components/Footer';
-import { SYSTEM_LOGO,WELCOME } from '@/constants';
+import {LOGIN_BACKGROUND_IMAGE, REGISTER_BACKGROUND_IMAGE, SYSTEM_LOGO, WELCOME} from '@/constants';
 
-import {
-getLoginUserUsingGET,userRegisterUsingPOST
-} from '@/services/ShierBI/UserController';
-import {LockOutlined, UploadOutlined, UserOutlined} from '@ant-design/icons';
-import { LoginForm,ProFormText } from '@ant-design/pro-components';
+import { getLoginUserUsingGET, userRegisterUsingPOST } from '@/services/ShierBI/UserController';
+import { Link } from '@@/exports';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LoginForm, ProFormText } from '@ant-design/pro-components';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
-import { Helmet,history,useModel } from '@umijs/max';
-import {Button, message, Tabs, Upload} from 'antd';
-import React,{ useState } from 'react';
+import { Helmet, history, useModel } from '@umijs/max';
+import { message, Tabs } from 'antd';
+import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
 import Settings from '../../../../config/defaultSettings';
+import {LoginFormPage} from "@ant-design/pro-form/lib";
 
 const Login: React.FC = () => {
   const [type, setType] = useState<string>('account');
@@ -42,7 +42,6 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (values: API.User) => {
     try {
-
       const res = await userRegisterUsingPOST(values);
 
       if (res.code === 0) {
@@ -68,20 +67,18 @@ const Login: React.FC = () => {
       </Helmet>
       <div
         style={{
-          flex: '1',
-          padding: '32px 0',
+          backgroundRepeat: 'no-repeat',
+          width: '100%',
+          height: '100%',
         }}
       >
-        <LoginForm
-          contentStyle={{
-            minWidth: 280,
-            maxWidth: '75vw',
-          }}
+        <LoginFormPage
+          backgroundImageUrl={REGISTER_BACKGROUND_IMAGE}
           logo={<img alt="logo" src={SYSTEM_LOGO} />}
           title="智能 BI 数据分析平台"
           subTitle={
             <a href={WELCOME} target="_blank">
-              十二智能 BI
+              猫咪智能 BI
             </a>
           }
           submitter={{
@@ -175,7 +172,10 @@ const Login: React.FC = () => {
               />
             </>
           )}
-        </LoginForm>
+          <div style={{ marginBottom: '20px' }}>
+            <Link to="/user/login">老用户？</Link>
+          </div>
+        </LoginFormPage>
       </div>
       <Footer />
     </div>

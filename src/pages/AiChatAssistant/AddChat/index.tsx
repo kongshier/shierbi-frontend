@@ -48,7 +48,7 @@ const AddChat: React.FC = () => {
   return (
     <div className="add-chat">
       <Card>
-        <Divider style={{fontWeight: 'bold', color: 'blue'}}>十二 AI 问答助手</Divider>
+        <Divider style={{fontWeight: 'bold', color: 'blue'}}>猫咪 AI 问答助手</Divider>
         <Form
           form={form}
           name="addChat"

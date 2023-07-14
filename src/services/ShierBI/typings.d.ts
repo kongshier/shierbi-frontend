@@ -66,6 +66,55 @@ declare namespace API {
     userId?: number;
   };
 
+  type AiFrequencyOrder = {
+    createTime?: string;
+    id?: number;
+    isDelete?: number;
+    orderStatus?: number;
+    price?: number;
+    purchaseQuantity?: number;
+    totalAmount?: number;
+    updateTime?: string;
+    userId?: number;
+  };
+
+  type AiFrequencyOrderCancelRequest = {
+    createTime?: string;
+    id?: number;
+    orderStatus?: number;
+    price?: number;
+    purchaseQuantity?: number;
+    totalAmount?: number;
+    updateTime?: string;
+    userId?: number;
+  };
+
+  type AiFrequencyOrderQueryRequest = {
+    createTime?: string;
+    current?: number;
+    id?: number;
+    orderStatus?: number;
+    pageSize?: number;
+    price?: number;
+    purchaseQuantity?: number;
+    sortField?: string;
+    sortOrder?: string;
+    totalAmount?: number;
+    updateTime?: string;
+    userId?: number;
+  };
+
+  type AiFrequencyOrderUpdateRequest = {
+    createTime?: string;
+    id?: number;
+    orderStatus?: number;
+    price?: number;
+    purchaseQuantity?: number;
+    totalAmount?: number;
+    updateTime?: string;
+    userId?: number;
+  };
+
   type AiFrequencyOrderVO = {
     createTime?: string;
     id?: number;
@@ -88,6 +137,16 @@ declare namespace API {
     userId?: number;
   };
 
+  type AlipayInfoVO = {
+    alipayAccountNo?: string;
+    alipayId?: string;
+    orderId?: number;
+    payStatus?: number;
+    qrCode?: string;
+    totalAmount?: number;
+    userId?: number;
+  };
+
   type BaseResponseAiAssistant_ = {
     code?: number;
     data?: AiAssistant;
@@ -97,6 +156,12 @@ declare namespace API {
   type BaseResponseAiFrequencyVO_ = {
     code?: number;
     data?: AiFrequencyVO;
+    message?: string;
+  };
+
+  type BaseResponseAlipayInfoVO_ = {
+    code?: number;
+    data?: AlipayInfoVO;
     message?: string;
   };
 
@@ -148,6 +213,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponsePageAiFrequencyOrder_ = {
+    code?: number;
+    data?: PageAiFrequencyOrder_;
+    message?: string;
+  };
+
   type BaseResponsePageChart_ = {
     code?: number;
     data?: PageChart_;
@@ -185,9 +256,14 @@ declare namespace API {
   };
 
   type BiResponse = {
+    chartData?: string;
     chartId?: number;
+    chartName?: string;
+    chartType?: string;
+    createTime?: string;
     genChart?: string;
     genResult?: string;
+    goal?: string;
   };
 
   type Chart = {
@@ -329,6 +405,19 @@ declare namespace API {
     total?: number;
   };
 
+  type PageAiFrequencyOrder_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: AiFrequencyOrder[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
   type PageChart_ = {
     countId?: string;
     current?: number;
@@ -374,13 +463,18 @@ declare namespace API {
   };
 
   type payUsingGETParams = {
-    /** payNo */
-    payNo?: string;
+    /** alipayAccountNo */
+    alipayAccountNo?: string;
+  };
+
+  type queryPayResultFromAlipayUsingPOSTParams = {
+    /** alipayAccountNo */
+    alipayAccountNo?: string;
   };
 
   type tradeQueryUsingPOSTParams = {
-    /** payNo */
-    payNo?: string;
+    /** alipayAccountNo */
+    alipayAccountNo?: string;
   };
 
   type User = {

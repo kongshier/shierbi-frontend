@@ -1,14 +1,14 @@
-import {selectAvatarUrl, selectGender, selectUserRole} from '@/constants';
+import { selectAvatarUrl, selectGender, selectUserRole } from '@/constants';
 import {
   deleteUserUsingPOST,
   listUserByPageUsingPOST,
   updateUserUsingPOST,
 } from '@/services/ShierBI/UserController';
-import type { ActionType, ProColumns } from '@ant-design/pro-components';
+import type { ProColumns } from '@ant-design/pro-components';
 import { ModalForm, ProForm, ProFormText, ProTable } from '@ant-design/pro-components';
 import { ProFormSelect } from '@ant-design/pro-form';
 import { Button, Image, message, Popconfirm, Tag } from 'antd';
-import { useRef } from 'react';
+import { useState } from 'react';
 
 export const waitTimePromise = async (time: number = 100) => {
   return new Promise((resolve) => {
@@ -266,7 +266,7 @@ const columns: ProColumns<API.User>[] = [
           title="删除用户"
           description="你确定要删除他吗？"
           onConfirm={async (e) => {
-            console.log("id",record.id);
+            console.log('id', record.id);
             const id = record.id;
             const isDelete = await deleteUserUsingPOST({ id: id });
             if (isDelete) {
@@ -291,60 +291,62 @@ const columns: ProColumns<API.User>[] = [
 ];
 
 export default () => {
-  const actionRef = useRef<ActionType>();
+  const [userTotal, setUserTotal] = useState<number>(0);
+  /**
+   * 初始值
+   */
+  const initSearchParams = {
+    current: 1,
+    pageSize: 10,
+    sortField: 'createTime',
+    sortOrder: 'desc',
+  };
+
+  /**
+   * 查询参数
+   */
+  const [searchParams, setSearchParams] = useState<API.AiFrequencyOrderQueryRequest>({
+    ...initSearchParams,
+  });
   return (
     <ProTable<API.UserQueryRequest>
       columns={columns}
-      actionRef={actionRef}
-      cardBordered
+      // 隐藏查询区域
+      // search={false}
       // 获取后端的数据，返回到表格
       // @ts-ignore
       request={async (params = {}, sort, filter) => {
-        console.log(sort, filter);
         await waitTime(1000);
         const userList = await listUserByPageUsingPOST(params);
-        // console.log('用户列表', userList.data.records);
+        // console.log(userList.data);
+        if (userList.code === 0) {
+          setUserTotal(userList.data?.total ?? 0);
+        }else {
+          message.error('获取用户列表失败');
+        }
         // @ts-ignore
         return { data: userList.data.records };
       }}
-      editable={{
-        type: 'multiple',
-      }}
-      columnsState={{
-        persistenceKey: 'pro-table-singe-demos',
-        persistenceType: 'localStorage',
-        onChange(value) {
-          console.log('value: ', value);
-        },
-      }}
-      rowKey="id"
-      search={{
-        labelWidth: 'auto',
-      }}
-      options={{
-        setting: {
-          // @ts-ignore
-          listsHeight: 400,
-        },
-      }}
-      form={{
-        // 由于配置了 transform，提交的参与与定义的不同这里需要转化一下
-        syncToUrl: (values, type) => {
-          if (type === 'get') {
-            return {
-              ...values,
-              // created_at: [values.startTime, values.endTime],
-            };
-          }
-          return values;
-        },
-      }}
       pagination={{
-        pageSize: 10,
-        onChange: (page) => console.log(page),
+        // 设置分页
+        showTotal: () => `共 ${userTotal} 条记录`,
+        showSizeChanger: true,
+        showQuickJumper: true,
+        pageSizeOptions: ['6', '10', '14', '20'],
+        onChange: (page, pageSize) => {
+          setSearchParams({
+            ...searchParams,
+            current: page,
+            pageSize,
+          });
+        },
+        current: searchParams.current,
+        pageSize: searchParams.pageSize,
+        total: userTotal,
+        position: ['bottomCenter'],
       }}
       dateFormatter="string"
-      headerTitle="高级表格"
+      headerTitle="用户列表"
     />
   );
 };

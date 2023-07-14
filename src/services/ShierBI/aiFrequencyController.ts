@@ -17,8 +17,8 @@ export async function AiFrequencyRechargeUsingPOST(
   });
 }
 
-/** getChartFrequency GET /api/aiFrequency/get */
-export async function getChartFrequencyUsingGET(options?: { [key: string]: any }) {
+/** getAiFrequency GET /api/aiFrequency/get */
+export async function getAiFrequencyUsingGET(options?: { [key: string]: any }) {
   return request<API.BaseResponseAiFrequencyVO_>('/api/aiFrequency/get', {
     method: 'GET',
     ...(options || {}),

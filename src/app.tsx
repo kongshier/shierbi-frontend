@@ -6,6 +6,7 @@ import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history, Link } from '@umijs/max';
 import { AvatarDropdown, AvatarName } from './components/RightContent/AvatarDropdown';
 import { errorConfig } from './requestConfig';
+import {Button, ConfigProvider} from "antd";
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -44,10 +45,9 @@ const MyIcon = createFromIconfontCN({
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
-    title: '十二智能 BI',
+    title: '猫咪智能 BI',
     logo: SYSTEM_LOGO,
     iconfontUrl: '//at.alicdn.com/t/c/font_4064432_y5wwdt2q2be.js',
-
     // 显示头像
     avatarProps: {
       src: initialState?.currentUser?.userAvatar,

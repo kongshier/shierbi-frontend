@@ -2,15 +2,12 @@ import { Avatar, Button, Card, Col, Divider, List, message, Modal, Result, Row }
 import React, { useEffect, useState } from 'react';
 
 import {
-  deleteAiAssistantUsingPOST, listAiAssistantByPageUsingPOST,
-  listMyAiAssistantByPageUsingPOST,
+  deleteAiAssistantUsingPOST,
+  listAiAssistantByPageUsingPOST,
 } from '@/services/ShierBI/AiAssistantController';
 import { useModel } from '@@/exports';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import Search from 'antd/es/input/Search';
-import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
-import remarkGfm from 'remark-gfm';
 
 const ChatManage: React.FC = () => {
   const [data, setData] = useState<API.AiAssistant[]>();
@@ -73,7 +70,7 @@ const ChatManage: React.FC = () => {
           console.log('res:', res.data);
           if (res.data) {
             message.success('删除成功');
-            // 删除成功后重新加载图表数据
+            // 删除成功后重新加载AI对话数据
             initData();
           } else {
             message.error('删除失败');
@@ -117,6 +114,8 @@ const ChatManage: React.FC = () => {
           current: searchParams.current,
           pageSize: searchParams.pageSize,
           total: total,
+          position: 'bottom',
+          align: 'center',
         }}
         dataSource={data}
         renderItem={(item) => (
@@ -145,7 +144,7 @@ const ChatManage: React.FC = () => {
                 )}
                 {item.questionStatus == 'running' && (
                   <>
-                    <Result status="info" title="图表生成中...." subTitle={item.execMessage} />
+                    <Result status="info" title="AI正在解答中...." subTitle={item.execMessage} />
                     <Row justify={'end'}>
                       <Col>
                         <Button danger onClick={() => handleDelete(item.id)}>
@@ -180,16 +179,14 @@ const ChatManage: React.FC = () => {
                     <Divider style={{ fontWeight: 'bold', color: 'blue', fontSize: '16px' }}>
                       AI解答
                     </Divider>
-                    <div style={{ whiteSpace: 'nowrap', overflow: 'auto' }}>
-                      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} >
-                        {item.questionResult}
-                      </ReactMarkdown>
+                    <div style={{ whiteSpace: 'pre-wrap', overflow: 'auto' }}>
+                      {item.questionResult}
                     </div>
 
                     <Divider />
                     <Row justify={'start'}>
                       <Col style={{ color: 'black', fontWeight: 'bold' }}>
-                        {'图表生成时间：' + new Date(item.createTime).toLocaleString()}
+                        {'AI解答时间：' + new Date(item.createTime).toLocaleString()}
                       </Col>
                     </Row>
                     <Row justify={'end'}>
@@ -203,7 +200,7 @@ const ChatManage: React.FC = () => {
                 )}
                 {item.questionStatus == 'failed' && (
                   <>
-                    <Result status="error" title="图表生成失败" subTitle={item.execMessage} />
+                    <Result status="error" title="AI解答失败" subTitle={item.execMessage} />
                     <Row justify="end">
                       <Col style={{ paddingRight: '10px' }}>
                         <Button type="primary" onClick={() => message.warning('敬请期待')}>
