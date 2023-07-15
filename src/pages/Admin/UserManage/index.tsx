@@ -132,20 +132,18 @@ const columns: ProColumns<API.User>[] = [
       <ModalForm<API.User>
         title="修改用户信息"
         trigger={
-          <>
-            <Button size={'small'} type={'primary'}>
+            <Button size={'small'} type={"primary"} >
               修改
             </Button>
-          </>
         }
         autoFocusFirstInput
         modalProps={{
           destroyOnClose: true,
           onCancel: () => console.log('run'),
         }}
-        submitTimeout={2000}
+        submitTimeout={500}
         onFinish={async (values) => {
-          await waitTime(1000);
+          await waitTime(500);
           //点击了提交，发起请求
           values.id = record.id;
           const isModify = await updateUserUsingPOST(values);
@@ -284,12 +282,12 @@ const columns: ProColumns<API.User>[] = [
             }
           }}
           onCancel={(e) => {}}
-          okText="Yes"
-          cancelText="No"
+          okText="是"
+          cancelText="否"
         >
           <Button size={'small'} type={'primary'} danger>
-            删除
-          </Button>
+              删除
+            </Button>
         </Popconfirm>
       </a>,
     ],
@@ -322,7 +320,7 @@ export default () => {
       // 获取后端的数据，返回到表格
       // @ts-ignore
       request={async (params = {}, sort, filter) => {
-        await waitTime(1000);
+        await waitTime(500);
         const userList = await listUserByPageUsingPOST(params);
         // console.log(userList.data);
         if (userList.code === 0) {

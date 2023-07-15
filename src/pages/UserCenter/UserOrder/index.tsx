@@ -173,14 +173,14 @@ const columns: ProColumns<API.AiFrequencyOrder>[] = [
               if (isDelete) {
                 message.success('删除成功');
                 // 刷新订单信息表单
-                // location.reload();
+                location.reload();
               } else {
                 message.error('删除失败');
               }
             }}
             onCancel={(e) => {}}
-            okText="Yes"
-            cancelText="No"
+            okText="是"
+            cancelText="否"
           >
             <Button size={'small'} type={'primary'} danger>
               删除
@@ -231,7 +231,6 @@ export default () => {
           } else {
             message.error('获取订单列表失败');
           }
-
           // @ts-ignore
           return { data: orderList.data.records };
         }}

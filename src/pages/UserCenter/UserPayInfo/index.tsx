@@ -1,13 +1,7 @@
 import type { ProColumns } from '@ant-design/pro-components';
-import { ModalForm, ProForm, ProFormText, ProTable } from '@ant-design/pro-components';
+import { ProTable } from '@ant-design/pro-components';
 
-import {
-  cancelOrderUsingPOST,
-  deleteOrderUsingPOST,
-  listMyOrderByPageUsingPOST,
-} from '@/services/ShierBI/aiFrequencyOrderController';
-import { Link } from '@@/exports';
-import { Button, message, Popconfirm, Tag } from 'antd';
+import {  message, Tag } from 'antd';
 import { useState } from 'react';
 import {listMyPayInfoByPageUsingPOST} from "@/services/ShierBI/aliPayInfoController";
 

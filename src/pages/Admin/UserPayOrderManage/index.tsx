@@ -178,7 +178,7 @@ const MyOrder: React.FC = () => {
     setTimeout(() => {
       setOpen(false);
       setConfirmLoading(false);
-    }, 2000);
+    }, 1000);
     location.reload();
     loaData();
   };

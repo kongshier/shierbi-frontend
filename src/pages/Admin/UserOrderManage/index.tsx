@@ -179,8 +179,8 @@ const columns: ProColumns<API.AiFrequencyOrder>[] = [
               }
             }}
             onCancel={(e) => {}}
-            okText="Yes"
-            cancelText="No"
+            okText="是"
+            cancelText="否"
           >
             <Button size={'small'} type={'primary'} danger>
               删除
@@ -222,7 +222,7 @@ export default () => {
         // @ts-ignore
         request={async (params = {}, sort, filter) => {
           // console.log(sort, filter);
-          await waitTime(500);
+          await waitTime(100);
           const orderList = await listOrderByPageUsingPOST(params);
           console.log('orderlist', orderList?.data?.records);
           if (orderList.code === 0) {

@@ -178,14 +178,14 @@ const MyOrder: React.FC = () => {
     setTimeout(() => {
       setOpen(false);
       setConfirmLoading(false);
-    }, 2000);
+    }, 1000);
     location.reload();
     loaData();
   };
 
   const handleCancel = () => {
     console.log('取消支付');
-    location.reload();
+    // location.reload();
     setOpen(false);
   };
 
