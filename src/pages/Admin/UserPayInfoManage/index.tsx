@@ -1,15 +1,9 @@
 import type { ProColumns } from '@ant-design/pro-components';
-import { ModalForm, ProForm, ProFormText, ProTable } from '@ant-design/pro-components';
+import { ProTable } from '@ant-design/pro-components';
 
-import {
-  cancelOrderUsingPOST,
-  deleteOrderUsingPOST,
-  listMyOrderByPageUsingPOST,
-} from '@/services/ShierBI/aiFrequencyOrderController';
-import { Link } from '@@/exports';
-import { Button, message, Popconfirm, Tag } from 'antd';
+import { message, Tag } from 'antd';
 import { useState } from 'react';
-import {listMyPayInfoByPageUsingPOST} from "@/services/ShierBI/aliPayInfoController";
+import {listMyPayInfoByPageUsingPOST, listPayInfoByPageUsingPOST} from "@/services/ShierBI/aliPayInfoController";
 
 export const waitTimePromise = async (time: number = 100) => {
   return new Promise((resolve) => {
@@ -123,7 +117,7 @@ export default () => {
         request={async (params = {}, sort, filter) => {
           // console.log(sort, filter);
           await waitTime(500);
-          const payInfoList = await listMyPayInfoByPageUsingPOST(params);
+          const payInfoList = await listPayInfoByPageUsingPOST(params);
           console.log('payInfoList', payInfoList?.data?.records);
           if (payInfoList.code === 0) {
             setPayInfoTotal(payInfoList?.data?.total ?? 0);

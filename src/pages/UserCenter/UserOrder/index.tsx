@@ -5,6 +5,7 @@ import {
   cancelOrderUsingPOST,
   deleteOrderUsingPOST,
   listMyOrderByPageUsingPOST,
+  updateOrderUsingPOST,
 } from '@/services/ShierBI/aiFrequencyOrderController';
 import { Link } from '@@/exports';
 import { Button, message, Popconfirm, Tag } from 'antd';
@@ -38,7 +39,7 @@ const columns: ProColumns<API.AiFrequencyOrder>[] = [
     align: 'center',
   },
   {
-    title: '价格',
+    title: '单价',
     dataIndex: 'price',
     ellipsis: true,
     align: 'center',
@@ -88,8 +89,10 @@ const columns: ProColumns<API.AiFrequencyOrder>[] = [
     key: 'pay',
     render: (text, record, _, action) => [
       <>
-        <Link to="/person/pay/order">
-          <Button size={"small"} type={"primary"}>付款</Button>
+        <Link to="/person/pay_order">
+          <Button size={'small'} type={'primary'}>
+            付款
+          </Button>
         </Link>
         <a key="view">
           <Popconfirm
@@ -110,7 +113,7 @@ const columns: ProColumns<API.AiFrequencyOrder>[] = [
             okText="是"
             cancelText="否"
           >
-            <Button size={"small"}>取消</Button>
+            <Button size={'small'}>取消</Button>
           </Popconfirm>
         </a>
       </>,
@@ -125,7 +128,11 @@ const columns: ProColumns<API.AiFrequencyOrder>[] = [
       <>
         <ModalForm<API.AiFrequencyOrderQueryRequest>
           title="修改订单信息"
-          trigger={<Button type="dashed" size={"small"} style={{color:'blue'}}>修改</Button>}
+          trigger={
+            <Button type="dashed" size={'small'} style={{ color: 'blue' }}>
+              修改
+            </Button>
+          }
           autoFocusFirstInput
           modalProps={{
             destroyOnClose: true,
@@ -133,26 +140,26 @@ const columns: ProColumns<API.AiFrequencyOrder>[] = [
           }}
           submitTimeout={2000}
           onFinish={async (values) => {
-            await waitTime(1000);
             //点击了提交，发起请求
+            console.log('values', values);
             values.id = record.id;
-            const isModify = await values;
-            if (isModify) {
-              message.success('修改成功');
-              // 刷新用户信息表单
+            const updateOrder = await updateOrderUsingPOST(values);
+            if (updateOrder.code === 0) {
+              message.success('修改订单成功');
+              // 刷新界面
               location.reload();
-              return true;
+            } else {
+              message.error('修改订单失败');
             }
-            return false;
           }}
         >
           <ProForm.Group>
             <ProFormText
               width="md"
-              name="totalAmount"
-              label="使用数量"
+              name="purchaseQuantity"
+              label="请输入你想购买AI使用次数"
               placeholder="请输入购买数量"
-              initialValue={record.totalAmount}
+              initialValue={record.purchaseQuantity}
             />
           </ProForm.Group>
         </ModalForm>
@@ -175,7 +182,7 @@ const columns: ProColumns<API.AiFrequencyOrder>[] = [
             okText="Yes"
             cancelText="No"
           >
-            <Button size={"small"} type={"primary"} danger>
+            <Button size={'small'} type={'primary'} danger>
               删除
             </Button>
           </Popconfirm>

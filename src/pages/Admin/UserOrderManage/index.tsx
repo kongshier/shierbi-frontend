@@ -2,8 +2,10 @@ import type { ProColumns } from '@ant-design/pro-components';
 import { ModalForm, ProForm, ProFormText, ProTable } from '@ant-design/pro-components';
 
 import {
+  cancelOrderUsingPOST,
   deleteOrderUsingPOST,
   listMyOrderByPageUsingPOST, listOrderByPageUsingPOST,
+  updateOrderUsingPOST,
 } from '@/services/ShierBI/aiFrequencyOrderController';
 import { Link } from '@@/exports';
 import { Button, message, Popconfirm, Tag } from 'antd';
@@ -37,7 +39,7 @@ const columns: ProColumns<API.AiFrequencyOrder>[] = [
     align: 'center',
   },
   {
-    title: '价格',
+    title: '单价',
     dataIndex: 'price',
     ellipsis: true,
     align: 'center',
@@ -63,7 +65,7 @@ const columns: ProColumns<API.AiFrequencyOrder>[] = [
     valueEnum: {
       0: { text: <Tag color="warning">待支付</Tag>, status: 'Default' },
       1: { text: <Tag color="success">已支付</Tag>, status: 'Success' },
-      2: { text: <Tag color="error">已取消</Tag>, status: 'Error' },
+      2: { text: <Tag color="error">超时订单</Tag>, status: 'Error' },
       3: { text: <Tag color="red">订单已取消</Tag>, status: 'Error' },
     },
     align: 'center',
@@ -81,20 +83,56 @@ const columns: ProColumns<API.AiFrequencyOrder>[] = [
     align: 'center',
   },
   {
+    title: '付款/取消',
+    align: 'center',
+    valueType: 'option',
+    key: 'pay',
+    render: (text, record, _, action) => [
+      <>
+        <Link to="/admin/user_pay_order_manage">
+          <Button size={'small'} type={'primary'}>
+            付款
+          </Button>
+        </Link>
+        <a key="view">
+          <Popconfirm
+            title="取消订单"
+            description="你确定要取消此订单吗？"
+            onConfirm={async (e) => {
+              console.log('record', record);
+              const isCancel = await cancelOrderUsingPOST({ ...record });
+              if (isCancel) {
+                message.success('取消成功');
+                // 刷新订单信息表单
+                location.reload();
+              } else {
+                message.error('取消失败');
+              }
+            }}
+            onCancel={(e) => {}}
+            okText="是"
+            cancelText="否"
+          >
+            <Button size={'small'}>取消</Button>
+          </Popconfirm>
+        </a>
+      </>,
+    ],
+  },
+  {
     title: '操作',
     align: 'center',
     valueType: 'option',
     key: 'option',
     render: (text, record, _, action) => [
       <>
-        <Link to="/person/pay/order">
-          <Button type="link" size={'small'}>
-            前往付款
-          </Button>
-        </Link>
         <ModalForm<API.AiFrequencyOrderQueryRequest>
           title="修改订单信息"
-          trigger={<Button type="link">修改</Button>}
+          trigger={
+            <Button type="dashed" size={'small'} style={{ color: 'blue' }}>
+              修改
+            </Button>
+          }
           autoFocusFirstInput
           modalProps={{
             destroyOnClose: true,
@@ -102,42 +140,40 @@ const columns: ProColumns<API.AiFrequencyOrder>[] = [
           }}
           submitTimeout={2000}
           onFinish={async (values) => {
-            await waitTime(1000);
             //点击了提交，发起请求
+            console.log('values', values);
             values.id = record.id;
-            const isModify = await values;
-            if (isModify) {
-              message.success('修改成功');
-              // 刷新用户信息表单
+            const updateOrder = await updateOrderUsingPOST(values);
+            if (updateOrder.code === 0) {
+              message.success('修改订单成功');
+              // 刷新界面
               location.reload();
-              return true;
+            } else {
+              message.error('修改订单失败');
             }
-            return false;
           }}
         >
           <ProForm.Group>
             <ProFormText
               width="md"
-              name="totalAmount"
-              label="使用数量"
+              name="purchaseQuantity"
+              label="请输入你想购买AI使用次数"
               placeholder="请输入购买数量"
-              initialValue={record.totalAmount}
+              initialValue={record.purchaseQuantity}
             />
           </ProForm.Group>
         </ModalForm>
-
         <a key="view">
           <Popconfirm
             title="删除订单"
-            description="你确定要删除次订单吗？"
+            description="你确定要删除此订单吗？"
             onConfirm={async (e) => {
-              console.log('id', record.id);
               const id = record.id;
               const isDelete = await deleteOrderUsingPOST({ id: id });
               if (isDelete) {
                 message.success('删除成功');
                 // 刷新订单信息表单
-                // location.reload();
+                location.reload();
               } else {
                 message.error('删除失败');
               }
@@ -146,12 +182,12 @@ const columns: ProColumns<API.AiFrequencyOrder>[] = [
             okText="Yes"
             cancelText="No"
           >
-            <Button type="link" danger>
+            <Button size={'small'} type={'primary'} danger>
               删除
             </Button>
           </Popconfirm>
         </a>
-      </>
+      </>,
     ],
   },
 ];
@@ -178,6 +214,7 @@ export default () => {
   return (
     <>
       <ProTable<API.AiFrequencyOrderQueryRequest>
+        headerTitle="下单列表"
         columns={columns}
         // 隐藏查询区域
         // search={false}
@@ -187,13 +224,14 @@ export default () => {
           // console.log(sort, filter);
           await waitTime(500);
           const orderList = await listOrderByPageUsingPOST(params);
-          // console.log('orderlist', orderList?.data?.records);
+          console.log('orderlist', orderList?.data?.records);
           if (orderList.code === 0) {
             setOrderList(orderList?.data?.records ?? []);
             setOrderTotal(orderList?.data?.total ?? 0);
           } else {
             message.error('获取订单列表失败');
           }
+
           // @ts-ignore
           return { data: orderList.data.records };
         }}
@@ -215,8 +253,6 @@ export default () => {
           total: orderTotal,
           position: ['bottomCenter'],
         }}
-        dateFormatter="string"
-        headerTitle="订单列表"
       />
     </>
   );

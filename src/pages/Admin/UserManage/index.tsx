@@ -131,7 +131,13 @@ const columns: ProColumns<API.User>[] = [
     render: (text, record, _, action) => [
       <ModalForm<API.User>
         title="修改用户信息"
-        trigger={<Button type="link">修改</Button>}
+        trigger={
+          <>
+            <Button size={'small'} type={'primary'}>
+              修改
+            </Button>
+          </>
+        }
         autoFocusFirstInput
         modalProps={{
           destroyOnClose: true,
@@ -281,7 +287,7 @@ const columns: ProColumns<API.User>[] = [
           okText="Yes"
           cancelText="No"
         >
-          <Button type="link" danger>
+          <Button size={'small'} type={'primary'} danger>
             删除
           </Button>
         </Popconfirm>

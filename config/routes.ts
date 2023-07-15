@@ -29,9 +29,9 @@ export default [
     name: "个人中心",
     routes: [
       { path: '/person/user_info', name: '个人信息', component: './UserCenter/UserInfo/' },
-      { path: '/person/order',  name: '个人订单',component: './UserCenter/UserDownOrder' },
+      { path: '/person/order',  name: '个人订单',component: './UserCenter/UserOrder' },
       { path: '/person/pay_order',  name: '订单付款',component: './UserCenter/UserPayOrder' },
-      { path: '/person/pay_info',  name: '支付信息查询',component: './UserCenter/UserPayInfo' },
+      { path: '/person/payInfo',  name: '支付信息查询',component: './UserCenter/UserPayInfo' },
     ],
   },
   {
@@ -47,6 +47,7 @@ export default [
       { path: '/admin/chart_manage', name: '图表管理', component: './Admin/ChartManage' },
       { path: '/admin/chat_manage', name: '对话管理', component: './Admin/AiChatManage' },
       { path: '/admin/user_order_manage', name: '订单管理', component: './Admin/UserOrderManage' },
+      { path: '/admin/user_pay_order_manage', name: '管理员支付订单', component: './Admin/UserPayOrderManage' },
       { path: '/admin/user_pay_info_manage', name: '支付信息结果查询', component: './Admin/UserPayInfoManage' },
     ],
   },

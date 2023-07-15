@@ -1,4 +1,4 @@
-import { listMyOrderByPageUsingPOST } from '@/services/ShierBI/aiFrequencyOrderController';
+import {listMyOrderByPageUsingPOST, listOrderByPageUsingPOST} from '@/services/ShierBI/aiFrequencyOrderController';
 import { payCodeUsingPOST, tradeQueryUsingPOST } from '@/services/ShierBI/aliPayController';
 import { ProColumns } from '@ant-design/pro-components';
 import { Button, Image, message, Table, Tag } from 'antd';
@@ -144,10 +144,10 @@ const MyOrder: React.FC = () => {
   };
 
   /**
-   * 获取订单列表
+   * 获取所有用户订单列表
    */
   const loaData = async () => {
-    const res = await listMyOrderByPageUsingPOST(searchParams);
+    const res = await listOrderByPageUsingPOST(searchParams);
     console.log('订单列表：', res?.data);
     if (res.code === 0) {
       setOrderList(res?.data?.records);
