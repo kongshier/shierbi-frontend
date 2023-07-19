@@ -206,14 +206,6 @@ const Login: React.FC = () => {
                 label="用户手机号码"
                 placeholder={'请输入用户手机号码 '}
               />
-              <ProFormText
-                name="userCode"
-                fieldProps={{
-                  size: 'large',
-                }}
-                label="用户编号"
-                placeholder={'请输入用户用户编号 '}
-              />
               <ProFormSelect
                 name="userStatus"
                 fieldProps={{

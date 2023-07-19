@@ -180,13 +180,6 @@ const columns: ProColumns<API.User>[] = [
           />
           <ProFormText
             width="md"
-            name="userCode"
-            label="用户编号"
-            placeholder="请输入编号"
-            initialValue={record.userCode}
-          />
-          <ProFormText
-            width="md"
             name="phone"
             label="手机号"
             placeholder="请输入手机号"

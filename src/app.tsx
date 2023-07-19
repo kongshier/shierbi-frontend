@@ -3,10 +3,9 @@ import { getLoginUserUsingGET } from '@/services/ShierBI/UserController';
 import { createFromIconfontCN } from '@ant-design/icons';
 import { SettingDrawer } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
-import { history, Link } from '@umijs/max';
-import { AvatarDropdown, AvatarName } from './components/RightContent/AvatarDropdown';
+import { history,Link } from '@umijs/max';
+import { AvatarDropdown,AvatarName } from './components/RightContent/AvatarDropdown';
 import { errorConfig } from './requestConfig';
-import {Button, ConfigProvider} from "antd";
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -82,7 +81,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
             disableUrlParams
             enableDarkTheme
             onSettingChange={(settings) => {
-              setInitialState((preInitialState) => ({
+              setInitialState((preInitialState: any) => ({
                 ...preInitialState,
                 settings,
               }));
@@ -101,8 +100,8 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
  */
 export const request = {
   // 请求后端地址
-  baseURL: 'http://localhost:8103',
-  // baseURL:'http://bi.kongshier.top',
+  // baseURL: 'http://localhost:8103',
+  baseURL:'http://bi.kongshier.top',
   // 获取cookie
   withCredentials: true,
   ...errorConfig,

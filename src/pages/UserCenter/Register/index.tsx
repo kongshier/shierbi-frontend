@@ -12,6 +12,7 @@ import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
 import Settings from '../../../../config/defaultSettings';
 import {LoginFormPage} from "@ant-design/pro-form/lib";
+import {Text} from "zrender/index";
 
 const Login: React.FC = () => {
   const [type, setType] = useState<string>('account');
@@ -160,15 +161,6 @@ const Login: React.FC = () => {
                     message: '密码不能小于8位！',
                   },
                 ]}
-              />
-              <ProFormText
-                name="userCode"
-                fieldProps={{
-                  size: 'large',
-                  prefix: <UserOutlined />,
-                }}
-                placeholder={'请输入编号'}
-                rules={[]}
               />
             </>
           )}

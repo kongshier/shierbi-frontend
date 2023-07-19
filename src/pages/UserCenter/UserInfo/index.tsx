@@ -1,6 +1,6 @@
 import { selectAvatarUrl, selectGender } from '@/constants';
 import { getAiFrequencyUsingGET } from '@/services/ShierBI/aiFrequencyController';
-
+import { addOrderUsingPOST } from '@/services/ShierBI/aiFrequencyOrderController';
 import {
   getLoginUserUsingGET,
   getUserVOByIdUsingGET,
@@ -27,7 +27,6 @@ import {
 import Modal from 'antd/es/modal/Modal';
 import { RcFile, UploadChangeParam } from 'antd/es/upload';
 import React, { useEffect, useState } from 'react';
-import {addOrderUsingPOST} from "@/services/ShierBI/aiFrequencyOrderController";
 
 const waitTime = (time: number = 100) => {
   return new Promise((resolve) => {
@@ -93,15 +92,7 @@ const UserInfo: React.FC = () => {
   }, []);
 
   //加...是创建一个新的对象把值赋给新对象，不会造成对象污染
-  const initsearchParams = {
-    current: 1,
-    pageSize: 6,
-    sortField: 'createTime',
-    sortOrder: 'desc',
-  };
-
-  //加...是创建一个新的对象把值赋给新对象，不会造成对象污染
-  const [searchParams, setSearchParams] = useState<API.ChartQueryRequest>({ ...initsearchParams });
+  const [userId, setUserId] = useState<number>();
   const [frequency, setFrequency] = useState<API.AiFrequencyVO>();
   const [number, setNumber] = useState<number>();
   const [data, setData] = useState<API.UserVO>({});
@@ -113,7 +104,7 @@ const UserInfo: React.FC = () => {
   const loadData = async () => {
     try {
       const res = await getAiFrequencyUsingGET();
-      console.log('获取图表调用信息', res.data);
+      // console.log('用户次数', res.data);
       if (res.data) {
         setFrequency(res.data);
       }
@@ -150,10 +141,12 @@ const UserInfo: React.FC = () => {
   // 获取用户信息
   const getUserInfo = async (id: any) => {
     return getUserVOByIdUsingGET({ id }).then((res: any) => {
+      console.log('编号', res.data);
       if (res.data) {
         setInitialState((s: any) => ({ ...s, loginUser: res.data }));
         setData(res.data);
         setImageUrl(res.data.userAvatar);
+        setUserId(res.data.id);
       }
     });
   };
@@ -162,7 +155,7 @@ const UserInfo: React.FC = () => {
     try {
       loadData();
       getUserInfo(initialState?.currentUser?.id).then((r) => {});
-      // console.log("用户信息",initialState?.currentUser.userAvatar)
+      // console.log('用户信息', initialState?.currentUser);
     } catch (e: any) {
       console.log(e);
     }
@@ -171,7 +164,6 @@ const UserInfo: React.FC = () => {
   // 更新用户头像
   const updateUserAvatar = async (id: any, userAvatar: any) => {
     // 更新用户头像
-    console.log(id, userAvatar);
     const res = await updateByProfileUserUsingPOST({
       id: id,
       userAvatar: userAvatar,
@@ -281,14 +273,14 @@ const UserInfo: React.FC = () => {
         <Descriptions.Item style={{ textAlign: 'center' }} label="性别：">
           {myUser.gender}
         </Descriptions.Item>
+        <Descriptions.Item style={{ textAlign: 'center' }} label="用户编号：">
+          {userId}
+        </Descriptions.Item>
         <Descriptions.Item style={{ textAlign: 'center' }} label="用户账户：">
           {myUser.userAccount}
         </Descriptions.Item>
         <Descriptions.Item style={{ textAlign: 'center' }} label="我的身份：">
           {myUser.userRole === 'user' ? '普通用户' : '管理员'}
-        </Descriptions.Item>
-        <Descriptions.Item style={{ textAlign: 'center' }} label="我的编号：">
-          {myUser.userCode}
         </Descriptions.Item>
         <Descriptions.Item style={{ textAlign: 'center' }} label="手机号码：">
           {myUser.phone === null ? '尚未填写手机号码！' : myUser.phone}
@@ -370,6 +362,14 @@ const UserInfo: React.FC = () => {
                 message: '请输入选择用户头像!',
               },
             ]}
+          />
+          <ProFormText
+            width="md"
+            name="id"
+            label="用户编号"
+            placeholder="修改修改后的密码"
+            initialValue={userId}
+            disabled
           />
           <ProFormText
             width="md"

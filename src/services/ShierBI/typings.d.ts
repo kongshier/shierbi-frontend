@@ -290,9 +290,15 @@ declare namespace API {
     message?: string;
   };
 
-  type BaseResponseUserVO_ = {
+  type BaseResponseUserCode_ = {
     code?: number;
-    data?: UserVO;
+    data?: UserCode;
+    message?: string;
+  };
+
+  type BaseResponseUserCodeVO_ = {
+    code?: number;
+    data?: UserCodeVO;
     message?: string;
   };
 
@@ -407,6 +413,11 @@ declare namespace API {
     id?: number;
   };
 
+  type getUserCodeByIdUsingGETParams = {
+    /** userId */
+    userId?: number;
+  };
+
   type getUserVOByIdUsingGETParams = {
     /** id */
     id?: number;
@@ -421,7 +432,6 @@ declare namespace API {
     updateTime?: string;
     userAccount?: string;
     userAvatar?: string;
-    userCode?: string;
     userName?: string;
     userPassword?: string;
     userRole?: string;
@@ -553,7 +563,6 @@ declare namespace API {
     updateTime?: string;
     userAccount?: string;
     userAvatar?: string;
-    userCode?: string;
     userName?: string;
     userPassword?: string;
     userRole?: string;
@@ -566,9 +575,29 @@ declare namespace API {
     phone?: string;
     userAccount?: string;
     userAvatar?: string;
-    userCode?: string;
     userName?: string;
     userPassword?: string;
+    userRole?: string;
+    userStatus?: number;
+  };
+
+  type UserCode = {
+    createTime?: string;
+    id?: number;
+    isDelete?: number;
+    updateTime?: string;
+    userId?: number;
+  };
+
+  type UserCodeVO = {
+    createTime?: string;
+    email?: string;
+    gender?: string;
+    id?: number;
+    phone?: string;
+    userAccount?: string;
+    userAvatar?: string;
+    userName?: string;
     userRole?: string;
     userStatus?: number;
   };
@@ -587,7 +616,6 @@ declare namespace API {
     phone?: string;
     sortField?: string;
     sortOrder?: string;
-    userCode?: string;
     userName?: string;
     userRole?: string;
     userStatus?: number;
@@ -596,7 +624,6 @@ declare namespace API {
   type UserRegisterRequest = {
     checkPassword?: string;
     userAccount?: string;
-    userCode?: string;
     userPassword?: string;
   };
 
@@ -606,7 +633,6 @@ declare namespace API {
     phone?: string;
     userAccount?: string;
     userAvatar?: string;
-    userCode?: string;
     userName?: string;
     userPassword?: string;
     userStatus?: number;
@@ -619,7 +645,6 @@ declare namespace API {
     phone?: string;
     userAccount?: string;
     userAvatar?: string;
-    userCode?: string;
     userName?: string;
     userPassword?: string;
     userRole?: string;
@@ -634,7 +659,6 @@ declare namespace API {
     phone?: string;
     userAccount?: string;
     userAvatar?: string;
-    userCode?: string;
     userName?: string;
     userRole?: string;
     userStatus?: number;
