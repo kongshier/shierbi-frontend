@@ -102,7 +102,6 @@ export const errorConfig: RequestConfig = {
       if (data?.success === false) {
         message.error('请求失败！');
       }
-
       if (data.code === 40100) {
         // 跳转到登录
         message.warning('请登录！');

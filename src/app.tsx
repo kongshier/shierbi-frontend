@@ -17,6 +17,22 @@ export async function getInitialState(): Promise<{
   currentUser?: API.LoginUserVO;
 }> {
   const fetchUserInfo = async () => {
+    console.log("NO BUG\n" +
+      "       _                        \n" +
+      "       \\`*-.                    \n" +
+      "        )  _`-.                 \n" +
+      "       .  : `. .                \n" +
+      "       : _   '  \\               \n" +
+      "       ; *` _.   `*-._          \n" +
+      "       `-.-'          `-.       \n" +
+      "         ;       `       `.     \n" +
+      "         :.       .        \\    \n" +
+      "         . \\  .   :   .-'   .   \n" +
+      "         '  `+.;  ;  '      :   \n" +
+      "         :  '  |    ;       ;-. \n" +
+      "         ; '   : :`-:     _.`* ;\n" +
+      "[bug] .*' /  .*' ; .*`- +'  `*' \n" +
+      "      `*-*   `*-*  `*-*'")
     try {
       // 获取登录用户信息
       const msg = await getLoginUserUsingGET();
