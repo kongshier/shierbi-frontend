@@ -6,7 +6,8 @@
 本项目是基于React+Spring Boot+RabbitMQ+AIGC的智能BI数据分析平台。
 
 访问地址：http://bi.kongshier.top
-目自[编程导航](https://yupi.icu/)
+
+来自[编程导航](https://yupi.icu/)
 
 > AIGC ：Artificial Intelligence Generation Content(AI 生成内容)
 
