@@ -23,6 +23,26 @@
 任务处理模块调用AI服务处理客户端数据，AI 服务异步生成结果返回给后端并保存到数据库，当后端的AI工服务生成完毕后，可以通过向前端发送通知的方式，或者通过业务后端监控数据库中图表生成服务的状态，来确定生成结果是否可用。若生成结果可用，前端即可获取并处理相应的数据，最终将结果返回给客户端展示。在此期间，用户可以去做自己的事情。
 ![image](https://user-images.githubusercontent.com/94662685/248858431-6dbf41e0-adfe-40cf-94da-f3db6c73b69d.png)
 
+
+## 项目运行
+### Install `node_modules`:
+```bash 
+npm install 
+```
+OR
+```bash 
+yarn
+```
+### 启动项目
+```bash 
+npm start
+```
+### 构建项目
+```bash 
+npm run dev
+```
+
+
 ## 项目技术栈
 ### 前端
 1. React 18
@@ -135,23 +155,3 @@
 
 查询交易信息
 ![交易信息](./images/README-1689399518474.png)
-
-
-## 项目运行
-#### Install `node_modules`:
-```bash 
-npm install 
-```
-OR
-```bash 
-yarn
-```
-### 启动项目
-```bash 
-npm start
-```
-### 构建项目
-```bash 
-npm run dev
-```
-
