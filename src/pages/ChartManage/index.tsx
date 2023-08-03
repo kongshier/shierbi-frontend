@@ -1,3 +1,4 @@
+import { globalData } from '@/global';
 import {
   deleteChartUsingPOST,
   listMyChartByPageUsingPOST,
@@ -7,8 +8,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Avatar, Button, Card, Col, Divider, List, message, Modal, Result, Row } from 'antd';
 import Search from 'antd/es/input/Search';
 import ReactECharts from 'echarts-for-react';
-import React, { useEffect, useState } from 'react';
-import ReactMarkdown from 'react-markdown';
+import React, { useEffect, useRef, useState } from 'react';
 
 const MyChartPage: React.FC = () => {
   /**
@@ -20,6 +20,16 @@ const MyChartPage: React.FC = () => {
     sortField: 'createTime',
     sortOrder: 'desc',
   };
+
+  //设置全局变量
+  const [isGlobalEnabled, setIsGlobalEnabled] = useState(globalData.isGlobalEnabled);
+  //设置全局变量
+  useEffect(() => {
+    setIsGlobalEnabled(globalData.isGlobalEnabled);
+  }, []);
+
+  // 使用 useRef 创建定时器的引用
+  const refreshTimer = useRef(null);
 
   /**
    * 查询参数
@@ -48,35 +58,65 @@ const MyChartPage: React.FC = () => {
     setLoading(loading);
     try {
       let res = await listMyChartByPageUsingPOST(searchParams);
+      console.log('列表：', res?.data?.records);
       if (res.data) {
         setChartList(res.data.records ?? []);
         setChartTotal(res.data.total ?? 0);
         // 隐藏title
         if (res.data.records) {
+          // 标志变量，表示是否需要继续刷新
+          let shouldRefresh = false;
           res.data.records.forEach((data) => {
-            if (data.chartStatus == 'succeed') {
+            if (data.chartStatus === 'succeed') {
               const chartOption = JSON.parse(data.genChart ?? '{}');
               // 取出title并且设置为 undefined
               chartOption.title = undefined;
               data.genChart = JSON.stringify(chartOption);
+            } else {
+              console.log('继续定时刷新图表');
+              // 如果存在不是 "succeed" 的记录，则设置标志变量为 true
+              shouldRefresh = true;
             }
           });
+
+          // 当前页的图表状态都是 succeed 则取消
+          if (!shouldRefresh) {
+            console.log('定时器已取消');
+            // 取消定时刷新
+            // @ts-ignore
+            clearInterval(refreshTimer.current);
+          }
         }
       } else {
-        message.error('获取我的图表失败');
+        message.error('获取图表失败');
       }
     } catch (e: any) {
-      message.error('获取我的图表失败' + e.message);
+      message.error('获取图表失败' + e.message);
     }
     setLoading(false);
   };
 
   /**
-   * 变化时执行此处
+   * 变化时执行此处，从后端加载数据
    */
   useEffect(() => {
     loadData();
   }, [searchParams]);
+
+  // 每 10 秒钟自动刷新一次
+  useEffect(() => {
+    // @ts-ignore
+    refreshTimer.current = setInterval(() => {
+      // 在定时器的回调函数中执行你需要定时刷新的操作
+      if (isGlobalEnabled) {
+        loadData();
+      }
+    }, 10000);
+    return () => {
+      // @ts-ignore
+      clearInterval(refreshTimer.current);
+    };
+  }, [isGlobalEnabled]);
 
   /**
    * 删除图表
@@ -168,11 +208,6 @@ const MyChartPage: React.FC = () => {
                       subTitle={item.execMessage ?? '系统繁忙，请稍后重试'}
                     />
                     <Row>
-                      <Col push={16}>
-                        <Link to={`/ViewChartData/${item.id}`}>
-                          <Button>查看图表数据</Button>
-                        </Link>
-                      </Col>
                       <Col push={17}>
                         <Button danger onClick={() => handleDelete(item.id)}>
                           删除
@@ -184,9 +219,6 @@ const MyChartPage: React.FC = () => {
                 {item.chartStatus == 'running' && (
                   <>
                     <Result status="info" title="图表生成中...." subTitle={item.execMessage} />
-                    <Link to={`/ViewChartData/${item.id}`}>
-                      <Button>查看图表数据</Button>
-                    </Link>
                   </>
                 )}
                 {item.chartStatus == 'succeed' && (
@@ -221,7 +253,7 @@ const MyChartPage: React.FC = () => {
                       智能分析结果
                     </Divider>
                     <div style={{ whiteSpace: 'pre-wrap', overflow: 'auto' }}>
-                      <p style={{ fontWeight: 'bold', color: '#0b93a1' ,textAlign:"left"}}>
+                      <p style={{ fontWeight: 'bold', color: '#0b93a1', textAlign: 'left' }}>
                         {item.genResult}
                       </p>
                     </div>
@@ -250,11 +282,6 @@ const MyChartPage: React.FC = () => {
                         <Button type="primary" onClick={() => message.warning('敬请期待')}>
                           重试
                         </Button>
-                      </Col>
-                      <Col>
-                        <Link to={`/ViewChartData/${item.id}`}>
-                          <Button>查看图表数据</Button>
-                        </Link>
                       </Col>
                       <Col>
                         <Button danger onClick={() => handleDelete(item.id)}>

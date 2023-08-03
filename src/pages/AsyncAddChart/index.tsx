@@ -4,7 +4,7 @@ import {
   genChartByAiUsingPOST
 } from '@/services/ShierBI/ChartController';
 import {Button, Card, Col, Divider, Form, message, Row, Select, Space, Spin, Upload} from 'antd';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {UploadOutlined} from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
@@ -12,10 +12,19 @@ import {ProForm} from "@ant-design/pro-form";
 import useForm = ProForm.useForm;
 import {history} from "@@/core/history";
 import {CHART_TYPE_SELECT} from "@/constants";
+import {globalData} from "@/global";
 
 const AsyncAddChart: React.FC = () => {
   const [form] = useForm();
   const [submitting, setSubmitting] = useState<boolean>(false);
+
+  // 设置全局变量到本地
+  const [isGlobalEnabled, setIsGlobalEnabled] = useState(globalData.isGlobalEnabled);
+
+  // 设置全局变量到本地
+  useEffect(() => {
+    setIsGlobalEnabled(globalData.isGlobalEnabled);
+  }, []);
 
   /**
    * 提交表单
@@ -47,6 +56,12 @@ const AsyncAddChart: React.FC = () => {
     setSubmitting(false);
   };
 
+  // 上传图表分析，并开启自动刷新
+  const openAutoFlush = () => {
+    globalData.isGlobalEnabled = true;
+    setIsGlobalEnabled(globalData.isGlobalEnabled);
+    console.log('全局刷新变量已修改为：', globalData.isGlobalEnabled);
+  };
   return (
     <div className="add-chart-async">
       <Card>
@@ -93,11 +108,13 @@ const AsyncAddChart: React.FC = () => {
           </Form.Item>
           <Form.Item wrapperCol={{span: 16, offset: 4}}>
             <Space>
+              {/* 在上传的同时开启图表管理自动刷新 openAutoFlush */}
               <Button
                 type="primary"
                 htmlType="submit"
                 loading={submitting}
                 disabled={submitting}
+                onClick={openAutoFlush}
               >
                 确定上传
               </Button>

@@ -3,8 +3,8 @@ import { getLoginUserUsingGET } from '@/services/ShierBI/UserController';
 import { createFromIconfontCN } from '@ant-design/icons';
 import { SettingDrawer } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
-import { history,Link } from '@umijs/max';
-import { AvatarDropdown,AvatarName } from './components/RightContent/AvatarDropdown';
+import { history, Link } from '@umijs/max';
+import { AvatarDropdown, AvatarName } from './components/RightContent/AvatarDropdown';
 import { errorConfig } from './requestConfig';
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -17,22 +17,24 @@ export async function getInitialState(): Promise<{
   currentUser?: API.LoginUserVO;
 }> {
   const fetchUserInfo = async () => {
-    console.log("NO BUG\n" +
-      "       _                        \n" +
-      "       \\`*-.                    \n" +
-      "        )  _`-.                 \n" +
-      "       .  : `. .                \n" +
-      "       : _   '  \\               \n" +
-      "       ; *` _.   `*-._          \n" +
-      "       `-.-'          `-.       \n" +
-      "         ;       `       `.     \n" +
-      "         :.       .        \\    \n" +
-      "         . \\  .   :   .-'   .   \n" +
-      "         '  `+.;  ;  '      :   \n" +
-      "         :  '  |    ;       ;-. \n" +
-      "         ; '   : :`-:     _.`* ;\n" +
-      "[bug] .*' /  .*' ; .*`- +'  `*' \n" +
-      "      `*-*   `*-*  `*-*'")
+    console.log(
+      'NO BUG\n' +
+        '       _                        \n' +
+        '       \\`*-.                    \n' +
+        '        )  _`-.                 \n' +
+        '       .  : `. .                \n' +
+        "       : _   '  \\               \n" +
+        '       ; *` _.   `*-._          \n' +
+        "       `-.-'          `-.       \n" +
+        '         ;       `       `.     \n' +
+        '         :.       .        \\    \n' +
+        "         . \\  .   :   .-'   .   \n" +
+        "         '  `+.;  ;  '      :   \n" +
+        "         :  '  |    ;       ;-. \n" +
+        "         ; '   : :`-:     _.`* ;\n" +
+        "[bug] .*' /  .*' ; .*`- +'  `*' \n" +
+        "      `*-*   `*-*  `*-*'",
+    );
     try {
       // 获取登录用户信息
       const msg = await getLoginUserUsingGET();
@@ -116,8 +118,8 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
  */
 export const request = {
   // 请求后端地址
-  // baseURL: 'http://localhost:8103',
-  baseURL:'http://bi.kongshier.top',
+  baseURL: isDev ? 'http://localhost:8103' : 'http://bi.kongshier.top',
+  // baseURL:'http://bi.kongshier.top',
   // 获取cookie
   withCredentials: true,
   ...errorConfig,

@@ -91,3 +91,8 @@ if (pwa) {
   });
   clearCache();
 }
+
+// 全局变量，用来控制图表管理中自动刷新图表状态
+export const globalData = {
+  isGlobalEnabled: false
+};
