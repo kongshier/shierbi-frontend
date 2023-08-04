@@ -4,6 +4,7 @@ import { createFromIconfontCN } from '@ant-design/icons';
 import { SettingDrawer } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history, Link } from '@umijs/max';
+import defaultSettings from '../config/defaultSettings';
 import { AvatarDropdown, AvatarName } from './components/RightContent/AvatarDropdown';
 import { errorConfig } from './requestConfig';
 
@@ -55,10 +56,6 @@ export async function getInitialState(): Promise<{
   return {};
 }
 
-const MyIcon = createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/c/font_4064432_3vhahxl55x3.js', // 在 iconfont.cn 上生成
-});
-
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
@@ -81,7 +78,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     links: isDev
       ? [
           <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-            <MyIcon type={'icon-wendangguanli'} />
             <span>OpenAPI 接口文档</span>
           </Link>,
         ]
@@ -98,6 +94,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
           <SettingDrawer
             disableUrlParams
             enableDarkTheme
+            // settings={defaultSettings}
             onSettingChange={(settings) => {
               setInitialState((preInitialState: any) => ({
                 ...preInitialState,
