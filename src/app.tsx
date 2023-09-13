@@ -1,10 +1,9 @@
 import { SYSTEM_LOGO } from '@/constants';
 import { getLoginUserUsingGET } from '@/services/ShierBI/UserController';
-import { createFromIconfontCN } from '@ant-design/icons';
+
 import { SettingDrawer } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history, Link } from '@umijs/max';
-import defaultSettings from '../config/defaultSettings';
 import { AvatarDropdown, AvatarName } from './components/RightContent/AvatarDropdown';
 import { errorConfig } from './requestConfig';
 
@@ -94,7 +93,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
           <SettingDrawer
             disableUrlParams
             enableDarkTheme
-            // settings={defaultSettings}
             onSettingChange={(settings) => {
               setInitialState((preInitialState: any) => ({
                 ...preInitialState,

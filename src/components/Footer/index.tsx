@@ -6,7 +6,7 @@ import {CSDN_LINK, WELCOME} from "@/constants";
 const Footer: React.FC = () => {
   const defaultMessage = '猫十二懿出品';
   const currentYear = new Date().getFullYear();
-  const beian = '桂ICP备2023002099号-1';
+  const beian = '桂ICP备2023002099号';
   const beianUrl = 'https://beian.miit.gov.cn/#/Integrated/index';
   return (
     <DefaultFooter
